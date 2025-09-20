@@ -13,12 +13,12 @@ public:
         metric
     };
 
-    Ingredient::Ingredient();
-    Ingredient::Ingredient(std::string _name, double _quantity, units unit = units::metric ); 
+    Ingredient();
+    Ingredient(std::string _name, double _quantity, units unit = units::metric ); 
 
     std::string getName();
-    std::string getQuantity_imp();
-    std::string getQuantity_met();
+    double getQuantity(units unit = units::metric);
+   
 private:
     std::string name;
     double quantity; // stored in metric units and can be converted
