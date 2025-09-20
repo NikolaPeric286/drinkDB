@@ -3,7 +3,7 @@
 #include <vector>
 
 
-struct Drink{
+struct Recipe{
 
     std::string name;
 
