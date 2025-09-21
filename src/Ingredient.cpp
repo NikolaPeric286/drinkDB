@@ -20,7 +20,7 @@ Ingredient::Ingredient(std::string _name, double _quantity, units unit)  {
 
 }
 
-double Ingredient::getQuantity(units unit){
+double Ingredient::getQuantity(units unit) const{
     switch(unit){
     case units::metric:
         return quantity;
@@ -29,6 +29,6 @@ double Ingredient::getQuantity(units unit){
     }
 }
 
-std::string Ingredient::getName(){
+std::string Ingredient::getName() const{
     return name;
 }

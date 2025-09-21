@@ -18,8 +18,8 @@ public:
     Ingredient();
     Ingredient(std::string _name, double _quantity, units unit = units::metric ); 
 
-    std::string getName();
-    double getQuantity(units unit = units::metric);
+    std::string getName() const;
+    double getQuantity(units unit = units::metric) const;
    
 private:
     std::string name;
