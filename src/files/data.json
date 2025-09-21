@@ -1,0 +1,18 @@
+{
+    "recipes" : {
+        "daiquiri" : {
+            "ingredients" : [
+                {"lime" : "1oz"},
+                {"light rum": "2oz"},
+                {"simple syrup" : ".5oz"}
+            ]
+        },
+        "negroni" : {
+            "ingredients" : [
+                {"campari" : "1oz"},
+                {"sweet vermouth": "1oz"},
+                {"gin" : "1oz"}
+            ]
+        }
+    }
+}

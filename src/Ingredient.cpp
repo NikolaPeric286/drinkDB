@@ -28,3 +28,7 @@ double Ingredient::getQuantity(units unit){
         return quantity * ML_TO_OZ;
     }
 }
+
+std::string Ingredient::getName(){
+    return name;
+}
