@@ -14,5 +14,26 @@
                 {"gin" : "1oz"}
             ]
         }
-    }
+    },
+    "stock" : [
+        {"rum" : false},
+        {"vodka" : true},
+        {"tequila" : false},
+        {"gin" : true},
+        {"lime" : true},
+        {"grenadine" : true},
+        {"sweet vermouth" : true},
+        {"campari" : true},
+        {"club soda" : true},
+        {"lemon" : true},
+        {"simple syrup": true},
+        {"orange bitters" : true},
+        {"angostura bitters": true},
+        {"grapefruit juice" : true},
+        {"elderflower syrup" : true},
+        {"mint" : true},
+        {"luxardo" : true},
+        {"ginger beer" : true},
+        {"beer" : true}
+    ]
 }

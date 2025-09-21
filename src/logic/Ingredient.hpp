@@ -17,6 +17,7 @@ public:
 
     Ingredient();
     Ingredient(std::string _name, double _quantity, units unit = units::metric ); 
+    Ingredient(std::string _name, bool _present);
 
     std::string getName() const;
     double getQuantity(units unit = units::metric) const;
@@ -24,4 +25,5 @@ public:
 private:
     std::string name;
     double quantity; // stored in metric units and can be converted
+    bool present;
 };

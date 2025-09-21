@@ -10,8 +10,9 @@ using json = nlohmann::json;
 
 int main(){
 
-    DataManager::getInstance().LoadJson();
-
+    DataManager::getInstance().LoadRecipes();
+    DataManager::getInstance().LoadStock();
+    
     
 
 

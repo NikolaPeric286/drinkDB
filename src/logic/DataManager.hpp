@@ -16,7 +16,7 @@ using json = nlohmann::json;
 class DataManager{
 
 public:
-    //singleton code
+    //singleton setup code
     DataManager(const DataManager&) = delete;
     DataManager operator=(DataManager& ) = delete;
     static DataManager& getInstance(){
@@ -24,14 +24,16 @@ public:
         return DataManager_instance;
     }
 
-    void LoadJson();
-    void SetPath(const std::string& path);
+    void LoadRecipes();
+    void LoadStock();
+    void SetPath(const std::string& path) {file_path = path;}
 
 private:
     DataManager(std::string path = "files/data.json") : file_path(path){}
 
     std::string file_path;
     std::vector<Recipe> recipe_vector;
+    std::vector<Ingredient> stock_vector;
 
 
 };
