@@ -4,7 +4,7 @@
 #include <string>
 #include "Recipe.hpp"
 #include "Ingredient.hpp"
-#include "../external/json.hpp"
+#include "../../external/json.hpp"
 
 #define OZ_TO_ML 29.5735
 #define TBSP_TO_ML 14.7868

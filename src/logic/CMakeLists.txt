@@ -1,0 +1,1 @@
+add_library(logic DataManager.cpp Ingredient.cpp Recipe.cpp )

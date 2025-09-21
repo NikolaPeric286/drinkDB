@@ -11,6 +11,5 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../output")
 
 add_subdirectory(src)
 
-add_executable(drinkDB src/main.cpp)
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/files DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/output)

@@ -1,16 +1,17 @@
 #include <fstream>
 #include <iostream>
 #include "../external/json.hpp"
-#include "Recipe.hpp"
-#include "Ingredient.hpp"
-#include "DataManager.hpp"
+#include "logic/Recipe.hpp"
+#include "logic/Ingredient.hpp"
+#include "logic/DataManager.hpp"
 
 using json = nlohmann::json;
 
 
 int main(){
 
-    
+    DataManager::getInstance().LoadJson();
+
     
 
 
