@@ -13,10 +13,10 @@ Recipe::Recipe(std::string _name) {
 
 void Recipe::printRecipe(Ingredient::units unit) const{
     std::cout << name << ": \n";
-    std::cout << "Ingredients:\n";
+    std::cout << "\tIngredients:\n";
     for(auto it = ingredient_vector.begin(); it != ingredient_vector.end(); it++){
 
-        std::cout << "\t" << std::round( it->getQuantity(unit) ) << (unit == Ingredient::units::metric ? "ml" : "oz" )<< " of " << it->getName() << "\n";
+        std::cout << "\t\t" <<  std::round(it->getQuantity(unit)*100)/100   << (unit == Ingredient::units::metric ? "ml" : "oz" )<< " of " << it->getName() << "\n";
     }
 
 }

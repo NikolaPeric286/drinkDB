@@ -100,13 +100,18 @@ void DataManager::LoadStock(){
 
 void DataManager::PrintAvailableRecipes() {
     std::vector<Recipe*> available_recipe_vector;
-    
+    bool temp_bool = true;
     for(auto it = recipe_vector.begin(); it != recipe_vector.end(); it++){
         for(auto it1 = it->ingredient_vector.begin(); it1 != it->ingredient_vector.end(); it1++){
-            if(IsInStock(it1->getName())){
-                available_recipe_vector.push_back(&(*it)); 
+            if(!IsInStock(it1->getName())){
+                temp_bool = false;
+                continue;
             }
         }
+        if(temp_bool){
+            available_recipe_vector.push_back(&(*it)); 
+        }
+        temp_bool = true;
     }
 
     for(auto it = available_recipe_vector.begin(); it != available_recipe_vector.end(); it++){
@@ -116,7 +121,7 @@ void DataManager::PrintAvailableRecipes() {
 
 bool DataManager::IsInStock(const std::string& ingredient_name) const{
     for(auto it = stock_vector.begin(); it != stock_vector.end(); it++){
-        if(it->getName() == ingredient_name){
+        if(it->getName() == ingredient_name && it->present){
             return true;
         }
     }

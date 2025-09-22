@@ -6,7 +6,7 @@
 #include "Ingredient.hpp"
 #include "../../external/json.hpp"
 
-#define OZ_TO_ML 29.5735
+#define OZ_TO_ML 30
 #define TBSP_TO_ML 14.7868
 #define L_TO_ML 1000
 #define TSP_TO_ML 4.92892

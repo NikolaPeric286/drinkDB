@@ -13,10 +13,26 @@
                 {"sweet vermouth": "1oz"},
                 {"gin" : "1oz"}
             ]
+        },
+        "moscow mule" : {
+            "ingredients" : [
+                {"ginger beer" : "4oz"},
+                {"vodka": "2oz"},
+                {"lime" : "0.5oz"},
+                {"mint" : true}
+            ]
+        },
+        "martinez" : {
+            "ingredients" : [
+                {"gin" : "1.5oz"},
+                {"sweet vermouth": "1.5oz"},
+                {"luxardo" : ".25oz"},
+                {"angostura bitters" : "2 dashes"}
+            ]
         }
     },
     "stock" : [
-        {"rum" : false},
+        {"light rum" : false},
         {"vodka" : true},
         {"tequila" : false},
         {"gin" : true},
@@ -33,7 +49,7 @@
         {"elderflower syrup" : true},
         {"mint" : true},
         {"luxardo" : true},
-        {"ginger beer" : true},
+        {"ginger beer" : false},
         {"beer" : true}
     ]
 }
