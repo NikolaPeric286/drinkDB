@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include "../external/json.hpp"
+#include "../external/imgui/imgui.h"
 #include "logic/Recipe.hpp"
 #include "logic/Ingredient.hpp"
 #include "logic/DataManager.hpp"

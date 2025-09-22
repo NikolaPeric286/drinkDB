@@ -10,6 +10,6 @@ set(CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES ${CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTOR
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../output")
 
 add_subdirectory(src)
-
-
+add_subdirectory(external/imgui)
+target_link_libraries(drinkDB PRIVATE imgui)
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/files DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/output)

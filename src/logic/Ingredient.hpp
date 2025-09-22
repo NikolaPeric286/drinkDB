@@ -22,6 +22,7 @@ public:
 
     std::string getName() const;
     double getQuantity(units unit = units::metric) const;
+    std::string getQuantityString() const {return quantity_string;}
     bool present;
 private:
     std::string name;

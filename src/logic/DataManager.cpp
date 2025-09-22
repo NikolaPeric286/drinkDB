@@ -42,9 +42,11 @@ void DataManager::LoadRecipes(){
                 else if (amount_str.find("ml") != std::string::npos){
                     temp_amount = std::stod(amount_str.erase(amount_str.length() - 2));
                 }
+                /*
                 else if (amount_str.find("l") != std::string::npos){
                     temp_amount = L_TO_ML * std::stod(amount_str.erase(amount_str.length() - 1));
                 }
+                */
                 else if (amount_str.find("tbsp") != std::string::npos){
                     temp_amount = TBSP_TO_ML * std::stod(amount_str.erase(amount_str.length() - 4));
                 }
@@ -52,12 +54,8 @@ void DataManager::LoadRecipes(){
                     temp_amount = TSP_TO_ML * std::stod(amount_str.erase(amount_str.length() - 3));
                 }
                 else{
-                    try{
-                        temp_amount = std::stod(amount_str.erase(amount_str.length() - 2));
-                    }
-                    catch(std::invalid_argument& e){
-                        std::cerr << "ERROR Invalid argument -> " << amount_str << " \n"; 
-                    }
+                    temp_recipe.ingredient_vector.emplace_back(name, amount_str);
+                    continue;
                 }
                 temp_recipe.ingredient_vector.emplace_back(name, temp_amount);
                 //std::cout << "  " << name << " : " << amount << "\n";

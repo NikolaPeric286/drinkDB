@@ -1,21 +1,21 @@
 #include "Ingredient.hpp"
 
 
-Ingredient::Ingredient() : name("NONAME"), quantity(-1), present(false) {}
+Ingredient::Ingredient() : name("NONAME"), quantity(-1), present(false), quantity_string("NULL") {}
 
 Ingredient::Ingredient(std::string _name, bool _present): present(_present){
     std::transform(_name.begin(), _name.end(), _name.begin(), tolower);
     name = _name;
 }
 
-Ingredient::Ingredient(std::string _name, std::string _quantity_string) : present(true){
+Ingredient::Ingredient(std::string _name, std::string _quantity_string) : present(true), quantity(-1){
     std::transform(_name.begin(), _name.end(), _name.begin(), tolower);
     name = _name;
     std::transform(_quantity_string.begin(), _quantity_string.end(), _quantity_string.begin(), tolower);
     quantity_string = _quantity_string;
 }
 
-Ingredient::Ingredient(std::string _name, double _quantity, units unit)  {
+Ingredient::Ingredient(std::string _name, double _quantity, units unit) : quantity_string("NULL") {
 
     std::transform(_name.begin(), _name.end(), _name.begin(), tolower);
     name = _name;
