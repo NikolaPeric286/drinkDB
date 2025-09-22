@@ -27,15 +27,16 @@ void DataManager::LoadRecipes(){
         for (auto& ingredient : ingredients) {
             for (auto& [name, amount] : ingredient.items()) {
                 
+                if(amount.is_boolean()){
+                    temp_recipe.ingredient_vector.emplace_back(name, true);
+                    continue;
+                }
                 std::string amount_str(amount.get<std::string>());
                 std::transform(amount_str.begin(), amount_str.end(), amount_str.begin(), tolower); //forces all lowercase
 
 
                 double temp_amount = -1; // should be metric units
-                if(amount_str == "true"){
-                    temp_recipe.ingredient_vector.emplace_back(name, true);
-                }
-                else if (amount_str.find("oz") != std::string::npos){
+                if (amount_str.find("oz") != std::string::npos){
                     temp_amount = OZ_TO_ML * std::stod(amount_str.erase(amount_str.length() - 2)); // erases last 2 characters from string then converts to double
                 }
                 else if (amount_str.find("ml") != std::string::npos){
@@ -95,3 +96,29 @@ void DataManager::LoadStock(){
 
     std::cout << "done\n";
 }
+
+
+void DataManager::PrintAvailableRecipes() {
+    std::vector<Recipe*> available_recipe_vector;
+    
+    for(auto it = recipe_vector.begin(); it != recipe_vector.end(); it++){
+        for(auto it1 = it->ingredient_vector.begin(); it1 != it->ingredient_vector.end(); it1++){
+            if(IsInStock(it1->getName())){
+                available_recipe_vector.push_back(&(*it)); 
+            }
+        }
+    }
+
+    for(auto it = available_recipe_vector.begin(); it != available_recipe_vector.end(); it++){
+        (*it)->printRecipe(Ingredient::units::metric );
+    }
+}
+
+bool DataManager::IsInStock(const std::string& ingredient_name) const{
+    for(auto it = stock_vector.begin(); it != stock_vector.end(); it++){
+        if(it->getName() == ingredient_name){
+            return true;
+        }
+    }
+    return false;
+ }

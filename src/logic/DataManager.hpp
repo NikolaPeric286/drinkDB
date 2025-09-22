@@ -28,6 +28,10 @@ public:
     void LoadStock();
     void SetPath(const std::string& path) {file_path = path;}
 
+    bool IsInStock(const std::string& ingredient_name) const;
+
+    void PrintAvailableRecipes() ;
+
 private:
     DataManager(std::string path = "files/data.json") : file_path(path){}
 

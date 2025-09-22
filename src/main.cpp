@@ -12,7 +12,7 @@ int main(){
 
     DataManager::getInstance().LoadRecipes();
     DataManager::getInstance().LoadStock();
-    
+    DataManager::getInstance().PrintAvailableRecipes();
     
 
 
