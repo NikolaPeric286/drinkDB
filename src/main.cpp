@@ -1,12 +1,11 @@
 #include <fstream>
 #include <iostream>
-#include "../external/json.hpp"
-#include "../external/imgui/imgui.h"
+#include "../external/json/include/nlohmann/json.hpp"
 #include "logic/Recipe.hpp"
 #include "logic/Ingredient.hpp"
 #include "logic/DataManager.hpp"
 
-using json = nlohmann::json;
+
 
 
 int main(){
@@ -14,6 +13,8 @@ int main(){
     DataManager::getInstance().LoadRecipes();
     DataManager::getInstance().LoadStock();
     DataManager::getInstance().PrintAvailableRecipes();
+
+
     
 
 

@@ -9,7 +9,29 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
 set(CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES ${CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../output")
 
+# Force wxWidgets configuration BEFORE adding it as a subdir
+# (CACHE+FORCE so the wx subproject actually sees these)
+set(wxBUILD_SHARED OFF CACHE BOOL "" FORCE)
+set(wxBUILD_SAMPLES OFF CACHE BOOL "" FORCE)
+set(wxBUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(wxBUILD_TOOLKIT gtk3 CACHE STRING "" FORCE)
+set(wxUSE_PRECOMP OFF CACHE BOOL "" FORCE)
+# If you don’t need networking:
+set(wxUSE_NET OFF CACHE BOOL "" FORCE)
+set(wxUSE_WEBREQUEST OFF CACHE BOOL "" FORCE)
+
 add_subdirectory(src)
-add_subdirectory(external/imgui)
-target_link_libraries(drinkDB PRIVATE imgui)
+add_subdirectory(external/wxWidgets)
+add_subdirectory(external/json)
+
+add_executable(drinkDB src/main.cpp )
+
+
+
+target_link_libraries(drinkDB PRIVATE
+  wx::base
+  wx::core
+  logic          # from src/CMakeLists.txt
+)
+
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/files DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/output)
