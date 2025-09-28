@@ -9,6 +9,7 @@ void DataManager::LoadRecipes(){
         std::cerr << "ERROR Failed to open file " << file_path << " \n";
         return ;
     }
+    recipe_vector.clear();
     std::cout << "Opened " << file_path << " loading recipes ...\n";
     json data = json::parse(file);
 
@@ -63,6 +64,7 @@ void DataManager::LoadRecipes(){
         }
         recipe_vector.push_back(temp_recipe);
     }
+    file.close();
     std::cout << "done\n";
 }
 
@@ -75,6 +77,8 @@ void DataManager::LoadStock(){
     }
     std::cout << "Opened " << file_path << " Loading stock ...\n";
     json data = json::parse(file);
+
+    stock_vector.clear();
 
     auto stock = data["stock"];
 
@@ -90,7 +94,7 @@ void DataManager::LoadStock(){
         }
     }
 
-    
+    file.close();
 
     std::cout << "done\n";
 }
@@ -126,6 +130,9 @@ bool DataManager::IsInStock(const std::string& ingredient_name) const{
     return false;
  }
 
- std::vector<Recipe> DataManager::GetVector(){
+ std::vector<Recipe> DataManager::GetRecipeVector(){
     return recipe_vector;
+ }
+ std::vector<Ingredient> DataManager::GetStockVector(){
+    return stock_vector;
  }

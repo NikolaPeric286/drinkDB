@@ -4,8 +4,7 @@
 #include <wx/srchctrl.h>
 #include <vector>
 #include <iostream>
-#include "../logic/DataManager.hpp"
-#include "../logic/Recipe.hpp"
+#include "../logic/Logic.hpp"
 
 
 
@@ -14,10 +13,11 @@ class MainFrame : public wxFrame{
 public:
     MainFrame(const wxString& title);
 
-    void OnExit( [[maybe_unused]] wxCommandEvent& event);
+    void OnExit( [[maybe_unused]] wxCommandEvent& event )  ;
     void OnSearch(wxCommandEvent& event);
     void OnLoadReceipts(wxCommandEvent& event);
     void OnLoadStock(wxCommandEvent& event);
+    void OnClear(wxCommandEvent& event);
 
 private:
     void create_controls();

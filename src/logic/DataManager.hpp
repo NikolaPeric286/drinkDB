@@ -27,9 +27,9 @@ public:
     void LoadRecipes();
     void LoadStock();
     void SetPath(const std::string& path) {file_path = path;}
-
-    std::vector<Recipe> GetVector();
-
+    void Clear(){ recipe_vector.clear(); stock_vector.clear();}
+    std::vector<Recipe> GetRecipeVector();
+    std::vector<Ingredient> GetStockVector();
     bool IsInStock(const std::string& ingredient_name) const;
 
     void PrintAvailableRecipes() ;

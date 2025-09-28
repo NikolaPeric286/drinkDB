@@ -6,7 +6,9 @@
 
 
 enum IDS {
-    ID_Load_Receipts = 2
+    ID_Load_Receipts = 2,
+    ID_Load_Stock,
+    ID_Clear
 
 
 };
@@ -27,7 +29,8 @@ void MainFrame::create_menus(){
 
     fileMenu = new wxMenu;
     fileMenu->Append(ID_Load_Receipts, "&Load Receipts");
-    fileMenu->Append(wxID_ANY, "&Load Stock");
+    fileMenu->Append(ID_Load_Stock, "&Load Stock");
+    fileMenu->Append(ID_Clear, "&Clear Data");
     fileMenu->AppendSeparator();
     fileMenu->Append(wxID_EXIT);
 
@@ -37,38 +40,68 @@ void MainFrame::create_menus(){
 
     Bind(wxEVT_MENU, &MainFrame::OnExit, this, wxID_EXIT);
     Bind(wxEVT_MENU, &MainFrame::OnLoadReceipts, this,ID_Load_Receipts);
-
+    Bind(wxEVT_MENU, &MainFrame::OnLoadStock, this,ID_Load_Stock);
+    Bind(wxEVT_MENU, &MainFrame::OnClear, this, ID_Clear);
 }
 
 void MainFrame::create_list(){
-    receipt_list = new wxListCtrl(receipt_panel, wxID_ANY, wxPoint(0,35), wxSize(400,700), wxLC_REPORT);
-
+    receipt_list = new wxListCtrl(receipt_panel, wxID_ANY, wxPoint(0,35), wxSize(400,700), wxLC_REPORT | wxLC_HRULES | wxLC_VRULES);
+    
+    receipt_list->InsertColumn(1, "Availablity", 0, 200);
     receipt_list->InsertColumn(0, "Name", 0, 200);
-    //receipt_list->InsertItem(0,"Test Item");
     
-    
-
-
     Bind(wxEVT_TEXT, &MainFrame::OnSearch, this);
 }
 
 void MainFrame::update_list(){
-    
-    std::vector<Recipe> recipe_vector = DataManager::getInstance().GetVector();
-    
-    wxString temp_string;
-    wxListItem temp_item;
+    receipt_list->DeleteAllItems();
+    std::vector<Recipe> recipe_vector = DataManager::getInstance().GetRecipeVector();
+    std::vector<Ingredient> stock_vector = DataManager::getInstance().GetStockVector();
+    std::cout << receipt_list->GetColumnCount() << "\n";
+    Recipe temp_recipe;
+    wxListItem temp_name;
+    wxListItem temp_availability;
+    bool is_available = true;
     for(unsigned int i = 0; i < recipe_vector.size(); i++){
         
-        temp_item = wxListItem();
-        temp_string = recipe_vector.at(i).name;
-        wxLogStatus("adding " + temp_string);
+        temp_name = wxListItem();
+        temp_recipe = recipe_vector.at(i);
         
-        temp_item.SetText(temp_string);
-        temp_item.SetId(i);
-        temp_item.SetAlign(wxLIST_FORMAT_LEFT );
-        //temp_item.SetMask(wxLIST_MASK_FORMAT);
-        receipt_list->InsertItem(temp_item );
+        wxLogStatus("adding " + temp_recipe.name);
+        temp_name.SetColumn(0);
+        temp_name.SetText(temp_recipe.name);
+        temp_name.SetId(i);
+        temp_name.SetAlign(wxLIST_FORMAT_LEFT );
+        
+        std::cout << "Name ID: " << i << "\n";
+        receipt_list->InsertItem(temp_name );
+
+        if(stock_vector.size() >0){
+            temp_availability.SetColumn(1);
+            temp_availability.SetAlign(wxLIST_FORMAT_LEFT);
+            temp_availability.SetId(i);
+            is_available = true;
+            for(auto it_recipe = temp_recipe.ingredient_vector.begin(); it_recipe != temp_recipe.ingredient_vector.end(); it_recipe++){
+                for(auto it_stock = stock_vector.begin(); it_stock != stock_vector.end(); it_stock++){
+                    if(it_recipe->getName() == it_stock->getName() && !it_stock->present){
+                        is_available = false;
+                        break;
+                    }
+                }
+                if(!is_available) { break;}
+            }
+
+            if(is_available){
+                temp_availability.SetText("Yes");
+            }
+            else{
+                temp_availability.SetText("No");
+            }
+            std::cout << "Availability ID: " << i << "\n";
+            receipt_list->SetItem(temp_availability);
+        }   
+        
+        
     }
     
 }
@@ -95,5 +128,12 @@ void MainFrame::OnLoadReceipts(wxCommandEvent& event){
     update_list();
 }
 void MainFrame::OnLoadStock(wxCommandEvent& event){
+    DataManager::getInstance().LoadStock();
+    wxLogStatus("Loaded Stock");
+    update_list();
+}
 
+void MainFrame::OnClear(wxCommandEvent& event){
+    DataManager::getInstance().Clear();
+    update_list();
 }
