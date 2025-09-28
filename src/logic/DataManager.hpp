@@ -28,6 +28,8 @@ public:
     void LoadStock();
     void SetPath(const std::string& path) {file_path = path;}
 
+    std::vector<Recipe> GetVector();
+
     bool IsInStock(const std::string& ingredient_name) const;
 
     void PrintAvailableRecipes() ;
