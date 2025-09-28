@@ -3,10 +3,10 @@ cmake_minimum_required(VERSION 3.28.3)
 project(drinkDB)
 
 
-set(CMAKE_CXX_STANDARD 20)
+
 set(GCC_COVERAGE_COMPILE_FLAGS "-Wall -Wextra -Wpedantic -std=c++20")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
-set(CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES ${CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES})
+
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../output")
 
 # Force wxWidgets configuration BEFORE adding it as a subdir
@@ -19,18 +19,20 @@ set(wxUSE_PRECOMP ON CACHE BOOL "" FORCE)
 set(wxUSE_NET OFF CACHE BOOL "" FORCE)
 set(wxUSE_WEBREQUEST OFF CACHE BOOL "" FORCE)
 
-add_subdirectory(src)
+
+
+
 add_subdirectory(external/wxWidgets)
 add_subdirectory(external/json)
+add_subdirectory(src)
 
 add_executable(drinkDB src/main.cpp )
 
 
 
 target_link_libraries(drinkDB PRIVATE
-  wx::base
-  wx::core
   logic          # from src/CMakeLists.txt
+  gui
 )
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/files DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/output)
