@@ -4,6 +4,7 @@
 #include <wx/srchctrl.h>
 #include <vector>
 #include <iostream>
+#include <string>
 #include "../logic/Logic.hpp"
 
 
@@ -24,7 +25,7 @@ private:
     void create_menus();
     void create_list();
     
-    void update_list();
+    void update_list(wxString search_term = "");
 
 
     wxMenuBar* menuBar;
@@ -34,6 +35,6 @@ private:
     wxPanel* receipt_panel;
     
     wxTextCtrl* search;
-    wxListCtrl* receipt_list;
+    wxListCtrl* recipe_list;
 
 };
