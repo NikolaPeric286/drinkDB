@@ -139,10 +139,13 @@ void MainFrame::create_panels(){
 }
 void MainFrame::create_controls(){
    
-    search = new wxTextCtrl(list_panel, wxID_ANY, "", wxPoint(0,0), wxSize(300,-1));
+    search = new wxTextCtrl(list_panel, wxID_ANY, "", wxPoint(0,0), wxSize(200,-1));
     
-    fav_button = new wxButton(list_panel, wxID_ANY, "",wxPoint(310,3), wxSize(29,29) );
+    fav_button = new wxButton(list_panel, wxID_ANY, "",wxPoint(202,3), wxSize(29,29) );
+    available_box = new wxCheckBox(list_panel, wxID_ANY, "Available", wxPoint(230,4), wxSize(-1,15) );
+    not_available_box = new wxCheckBox(list_panel, wxID_ANY, "Not Available", wxPoint(230,19), wxSize(-1,15));
 
+    
 }
 
 void MainFrame::OnSearch(wxCommandEvent& event){
