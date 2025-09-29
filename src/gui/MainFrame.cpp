@@ -1,3 +1,5 @@
+// MainFrame.cpp
+//
 #include "MainFrame.hpp"
 #include <wx/wxprec.h>
 #ifndef WX_PRECOMP
@@ -14,6 +16,7 @@ enum IDS {
 
 MainFrame::MainFrame(const wxString& title) : wxFrame(nullptr, wxID_ANY, title){
     CreateStatusBar();
+    create_panels();
     create_menus();
     create_controls();
     create_list();
@@ -44,11 +47,11 @@ void MainFrame::create_menus(){
 }
 
 void MainFrame::create_list(){
-    recipe_list = new wxListCtrl(receipt_panel, wxID_ANY, wxPoint(0,35), wxSize(400,700), wxLC_REPORT | wxLC_HRULES | wxLC_VRULES);
+    recipe_list = new wxListCtrl(list_panel, wxID_ANY, wxPoint(0,35), wxSize(400,700), wxLC_REPORT | wxLC_HRULES | wxLC_VRULES);
     
     recipe_list->InsertColumn(1, "Availablity", 0, 200);
     recipe_list->InsertColumn(0, "Name", 0, 200);
-    
+    recipe_list->SetDoubleBuffered(true);
     Bind(wxEVT_TEXT, &MainFrame::OnSearch, this);
 }
 
@@ -119,7 +122,7 @@ void MainFrame::update_list(wxString search_term){
                 temp_availability.SetText("No");
             }
             
-            
+
             recipe_list->SetItem(temp_availability);
         }   
         
@@ -127,13 +130,18 @@ void MainFrame::update_list(wxString search_term){
     }
     
 }
-void MainFrame::create_controls(){
+
+void MainFrame::create_panels(){
     main_panel = new wxPanel(this);
+    list_panel = new wxPanel(main_panel, wxID_ANY, wxDefaultPosition, wxSize(400,800));
+    recipe_panel =  new wxPanel(main_panel, wxID_ANY, wxPoint(400,0), wxSize(400,800));
 
-    receipt_panel = new wxPanel(main_panel, wxID_ANY, wxDefaultPosition, wxSize(400,800));
-
-    search = new wxTextCtrl(receipt_panel, wxID_ANY, "default value", wxPoint(0,0), wxSize(400,-1));
+}
+void MainFrame::create_controls(){
+   
+    search = new wxTextCtrl(list_panel, wxID_ANY, "", wxPoint(0,0), wxSize(300,-1));
     
+    fav_button = new wxButton(list_panel, wxID_ANY, "",wxPoint(310,3), wxSize(29,29) );
 
 }
 

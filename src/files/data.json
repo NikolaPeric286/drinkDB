@@ -29,6 +29,15 @@
                 {"luxardo" : ".25oz"},
                 {"angostura bitters" : "2 dashes"}
             ]
+        },
+        "gin fizz" : {
+            "ingredients" : [
+                {"gin" : "2oz"},
+                {"lemon": "1oz"},
+                {"simple syrup" : "1oz"},
+                {"egg white" : "1oz"},
+                {"club soda" : "2oz"}
+            ]
         }
     },
     "stock" : [
@@ -50,6 +59,7 @@
         {"mint" : true},
         {"luxardo" : true},
         {"ginger beer" : false},
-        {"beer" : true}
+        {"beer" : true},
+        {"egg white" : true}
     ]
 }
