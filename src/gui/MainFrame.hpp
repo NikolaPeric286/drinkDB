@@ -23,6 +23,15 @@ TODO:
 */
 
 
+enum IDS {
+    ID_Load_Receipts = 2,
+    ID_Load_Stock,
+    ID_Clear,
+    ID_Available,
+    ID_Not_Available
+
+};
+
 class MainFrame : public wxFrame{
 
 public:

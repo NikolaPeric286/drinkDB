@@ -7,14 +7,7 @@
 #endif
 
 
-enum IDS {
-    ID_Load_Receipts = 2,
-    ID_Load_Stock,
-    ID_Clear,
-    ID_Available,
-    ID_Not_Available
 
-};
 
 MainFrame::MainFrame(const wxString& title) : wxFrame(nullptr, wxID_ANY, title){
     CreateStatusBar();
@@ -24,9 +17,7 @@ MainFrame::MainFrame(const wxString& title) : wxFrame(nullptr, wxID_ANY, title){
     create_list();
 }
 
-void MainFrame::OnExit(wxCommandEvent& event){
-    Close(true);
-}
+
 
 void MainFrame::create_menus(){
     menuBar = new wxMenuBar;
@@ -156,39 +147,14 @@ void MainFrame::create_controls(){
     available_box = new wxCheckBox(list_panel, ID_Available, "Available", wxPoint(230,4), wxSize(-1,15) );
     not_available_box = new wxCheckBox(list_panel, ID_Not_Available, "Not Available", wxPoint(230,19), wxSize(-1,15));
 
+    available_box->SetValue(true);
+    not_available_box->SetValue(true);
+
     Bind(wxEVT_CHECKBOX, &MainFrame::OnCheckBox, this, ID_Available);
     Bind(wxEVT_CHECKBOX, &MainFrame::OnCheckBox, this, ID_Not_Available);
 }
 
-void MainFrame::OnSearch(wxCommandEvent& event){
-    wxString search_string = event.GetString();
-    
-    update_list(search_string);
-    
 
-    wxLogStatus(search_string);
-}
-
-
-void MainFrame::OnLoadReceipts(wxCommandEvent& event){
-    DataManager::getInstance().LoadRecipes();
-    wxLogStatus("Loaded Receipts");
-    update_list();
-}
-void MainFrame::OnLoadStock(wxCommandEvent& event){
-    DataManager::getInstance().LoadStock();
-    wxLogStatus("Loaded Stock");
-    update_list();
-}
-
-void MainFrame::OnClear(wxCommandEvent& event){
-    DataManager::getInstance().Clear();
-    update_list();
-}
-
-void MainFrame::OnCheckBox(wxCommandEvent& event){
-    update_list(search->GetValue()); // passes the search term to preserve searching after checking a box
-}
 
 
 
