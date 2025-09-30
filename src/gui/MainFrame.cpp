@@ -10,7 +10,9 @@
 enum IDS {
     ID_Load_Receipts = 2,
     ID_Load_Stock,
-    ID_Clear
+    ID_Clear,
+    ID_Available,
+    ID_Not_Available
 
 };
 
@@ -44,6 +46,7 @@ void MainFrame::create_menus(){
     Bind(wxEVT_MENU, &MainFrame::OnLoadReceipts, this,ID_Load_Receipts);
     Bind(wxEVT_MENU, &MainFrame::OnLoadStock, this,ID_Load_Stock);
     Bind(wxEVT_MENU, &MainFrame::OnClear, this, ID_Clear);
+    
 }
 
 void MainFrame::create_list(){
@@ -80,6 +83,8 @@ void MainFrame::update_list(wxString search_term){
         if(temp_recipe.name.find(search_term) == std::string::npos){ // checks if the search term is in the name
             continue; // if not skips the recipe
         }
+       
+        
 
         wxLogStatus("adding " + temp_recipe.name);
 
@@ -91,7 +96,6 @@ void MainFrame::update_list(wxString search_term){
         
         //inserts the name part of the row
         recipe_list->InsertItem(temp_name );
-
 
         //if the stock vector is loaded, checks if the recipe is available
         if(stock_vector.size() > 0){
@@ -105,13 +109,10 @@ void MainFrame::update_list(wxString search_term){
             //and if it doesnt find it it exits and sets the associated bool to set a "No"
             is_available = true;
             for(auto it_recipe = temp_recipe.ingredient_vector.begin(); it_recipe != temp_recipe.ingredient_vector.end(); it_recipe++){
-                for(auto it_stock = stock_vector.begin(); it_stock != stock_vector.end(); it_stock++){
-                    if(it_recipe->getName() == it_stock->getName() && !it_stock->present){
-                        is_available = false;
-                        break;
-                    }
+                if(!DataManager::getInstance().IsInStock(it_recipe->getName())){
+                    is_available = false;
+                    break;
                 }
-                if(!is_available) { break;}
             }
 
 
@@ -121,9 +122,19 @@ void MainFrame::update_list(wxString search_term){
             else{
                 temp_availability.SetText("No");
             }
-            
 
             recipe_list->SetItem(temp_availability);
+            
+            
+            if(is_available && !available_box->GetValue() ){
+                recipe_list->DeleteItem(id_index);
+                id_index--;
+            }
+            if(!is_available && !not_available_box->GetValue() ){
+                recipe_list->DeleteItem(id_index);
+                id_index--;
+            }
+            
         }   
         
         id_index++;
@@ -142,10 +153,11 @@ void MainFrame::create_controls(){
     search = new wxTextCtrl(list_panel, wxID_ANY, "", wxPoint(0,0), wxSize(200,-1));
     
     fav_button = new wxButton(list_panel, wxID_ANY, "",wxPoint(202,3), wxSize(29,29) );
-    available_box = new wxCheckBox(list_panel, wxID_ANY, "Available", wxPoint(230,4), wxSize(-1,15) );
-    not_available_box = new wxCheckBox(list_panel, wxID_ANY, "Not Available", wxPoint(230,19), wxSize(-1,15));
+    available_box = new wxCheckBox(list_panel, ID_Available, "Available", wxPoint(230,4), wxSize(-1,15) );
+    not_available_box = new wxCheckBox(list_panel, ID_Not_Available, "Not Available", wxPoint(230,19), wxSize(-1,15));
 
-    
+    Bind(wxEVT_CHECKBOX, &MainFrame::OnCheckBox, this, ID_Available);
+    Bind(wxEVT_CHECKBOX, &MainFrame::OnCheckBox, this, ID_Not_Available);
 }
 
 void MainFrame::OnSearch(wxCommandEvent& event){
@@ -173,3 +185,10 @@ void MainFrame::OnClear(wxCommandEvent& event){
     DataManager::getInstance().Clear();
     update_list();
 }
+
+void MainFrame::OnCheckBox(wxCommandEvent& event){
+    update_list(search->GetValue()); // passes the search term to preserve searching after checking a box
+}
+
+
+

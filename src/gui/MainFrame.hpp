@@ -44,6 +44,11 @@ public:
     void OnSearch(wxCommandEvent& event);
     // Handles when user selects a recipe from the ListCtrl
     void OnSelect(wxCommandEvent& event);
+
+    void OnCheckBox(wxCommandEvent& event);
+    
+    
+
     // RECIPE PANEL EVENTS -----------------
     
 
