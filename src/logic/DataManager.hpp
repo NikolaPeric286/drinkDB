@@ -24,15 +24,22 @@ public:
         return DataManager_instance;
     }
 
+    //loading from files
+    //
     void LoadRecipes();
     void LoadStock();
+
     void SetPath(const std::string& path) {file_path = path;}
+
+
     void Clear(){ recipe_vector.clear(); stock_vector.clear();}
-    std::vector<Recipe> GetRecipeVector();
-    std::vector<Ingredient> GetStockVector();
+
+    std::vector<Recipe>& GetRecipeVector();
+    std::vector<Ingredient>& GetStockVector();
+
     bool IsInStock(const std::string& ingredient_name) const;
 
-    void PrintAvailableRecipes() ;
+    void PrintAvailableRecipes();
 
 private:
     DataManager(std::string path = "files/data.json") : file_path(path){}

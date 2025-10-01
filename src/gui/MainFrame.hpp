@@ -28,8 +28,8 @@ enum IDS {
     ID_Load_Stock,
     ID_Clear,
     ID_Available,
-    ID_Not_Available
-
+    ID_Not_Available,
+    ID_Recipe_List
 };
 
 class MainFrame : public wxFrame{
@@ -42,20 +42,21 @@ public:
     // Exit event handler
     void OnExit( [[maybe_unused]] wxCommandEvent& event )  ; 
     // Loads recipes into DataMangager and imports the recipes from DataManager into the ListCtrl using update_list
-    void OnLoadReceipts(wxCommandEvent& event);
+    void OnLoadReceipts([[maybe_unused]] wxCommandEvent& event);
     // Loads stock of ingredients into DataMangager and imports the recipes from DataManager into the ListCtrl using update_list
-    void OnLoadStock(wxCommandEvent& event);
+    void OnLoadStock([[maybe_unused]] wxCommandEvent& event);
     // Clears the ListCtrl without changing the data in DataManager
-    void OnClear(wxCommandEvent& event);
+    void OnClear([[maybe_unused]] wxCommandEvent& event);
     
     // LIST PANEL EVENTS --------------------
     // Handles user typing in box menu
-    void OnSearch(wxCommandEvent& event);
+    void OnSearch([[maybe_unused]] wxCommandEvent& event);
     // Handles when user selects a recipe from the ListCtrl
-    void OnSelect(wxCommandEvent& event);
+    void OnSelect([[maybe_unused]] wxCommandEvent& event);
 
-    void OnCheckBox(wxCommandEvent& event);
+    void OnCheckBox([[maybe_unused]] wxCommandEvent& event);
     
+    void OnSelectRecipe([[maybe_unused]] wxCommandEvent& event);
     
 
     // RECIPE PANEL EVENTS -----------------
@@ -64,11 +65,13 @@ public:
 private:
 
     void create_panels();
-    void create_controls();
     void create_menus();
     void create_list();
+    void create_recipe_display();
     
     void update_list(wxString search_term = "");
+
+    void clear_ingredient_list();
 
     // menus
     wxMenuBar* menuBar;
@@ -85,5 +88,15 @@ private:
     wxButton* fav_button;
     wxCheckBox* available_box;
     wxCheckBox* not_available_box;
+
+    // Recipe Display
+    wxString title_header = wxString("Recipe Title: ");
+
+    wxRect* background_rect;
+    wxStaticText* recipe_title;
+    wxStaticText* ingredients_title;
+    wxStaticText* availability_display;
+    std::vector<wxStaticText*> ingredient_list_vector;
+
 
 };
