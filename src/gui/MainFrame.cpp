@@ -61,6 +61,7 @@ void MainFrame::create_list(){
     Bind(wxEVT_CHECKBOX, &MainFrame::OnCheckBox, this, ID_Available);
     Bind(wxEVT_CHECKBOX, &MainFrame::OnCheckBox, this, ID_Not_Available);
     Bind(wxEVT_LIST_ITEM_SELECTED, &MainFrame::OnSelectRecipe, this, ID_Recipe_List);
+    search->Bind(wxEVT_LEFT_DOWN, &MainFrame::OnClickSearch, this);
 
 }
 

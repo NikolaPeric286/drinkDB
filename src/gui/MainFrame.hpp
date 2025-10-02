@@ -55,10 +55,12 @@ public:
     void OnSearch([[maybe_unused]] wxCommandEvent& event);
     // Handles when user selects a recipe from the ListCtrl
     void OnSelect([[maybe_unused]] wxCommandEvent& event);
-
+    // Handles either of the 2 check box events
     void OnCheckBox([[maybe_unused]] wxCommandEvent& event);
-    
+    // Handles when the user clicks on a recipe, displays it on the recipe display side
     void OnSelectRecipe([[maybe_unused]] wxCommandEvent& event);
+    // clears the placeholder text in the search bar when the user clicks on it
+    void OnClickSearch([[maybe_unused]] wxMouseEvent& event);
     
 
     // RECIPE PANEL EVENTS -----------------
@@ -96,7 +98,7 @@ private:
     wxCheckBox* not_available_box;
 
     // Recipe Display
-    wxString title_header = wxString("       ");
+    
 
     wxRect* background_rect;
     wxStaticText* recipe_title;
@@ -108,6 +110,9 @@ private:
     wxImage* check_mark_image;
     wxImage* x_mark_image;
 
+
+    const wxString title_header = wxString("       ");
+    const wxString placeholder_text = wxString("search a recipe...");
 
     
 };

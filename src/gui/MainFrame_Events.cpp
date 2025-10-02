@@ -40,7 +40,7 @@ void MainFrame::OnClear([[maybe_unused]] wxCommandEvent& event){
 }
 
 void MainFrame::OnCheckBox([[maybe_unused]] wxCommandEvent& event){
-    update_list(search->GetValue()); // passes the search term to preserve searching after checking a box
+    update_list((search->GetValue() != placeholder_text)? search->GetValue(): ""); // passes the search term to preserve searching after checking a box, but only if the term is not placeholder text
 }
 
 void MainFrame::OnSelectRecipe([[maybe_unused]] wxCommandEvent& event){
@@ -124,10 +124,20 @@ void MainFrame::OnSelectRecipe([[maybe_unused]] wxCommandEvent& event){
         if(!DataManager::getInstance().GetStockVector().empty()){
             image_offset = ingredient_list_vector.back()->GetSize().GetX() + 10;
             
-            availability_bit_map_vector.push_back(new wxStaticBitmap(recipe_panel, wxID_ANY, wxBitmapBundle( (DataManager::getInstance().IsInStock(it->getName()))? *check_mark_image : *x_mark_image), wxPoint(20+image_offset, 154 + offset),wxDefaultSize, wxALIGN_CENTRE ));
+            availability_bit_map_vector.emplace_back(new wxStaticBitmap(recipe_panel, wxID_ANY, wxBitmapBundle( (DataManager::getInstance().IsInStock(it->getName()))? *check_mark_image : *x_mark_image), wxPoint(20+image_offset, 154 + offset),wxDefaultSize, wxALIGN_CENTRE ));
         }
         offset += 20;
     }
     
 
+}
+
+
+void MainFrame::OnClickSearch([[maybe_unused]] wxMouseEvent& event){
+    Freeze();
+    if(search->GetValue() == placeholder_text){
+        search->Clear();
+    }
+    event.Skip();
+    Thaw();
 }
