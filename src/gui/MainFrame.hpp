@@ -7,6 +7,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <sstream>
 #include "../logic/Logic.hpp"
 
 /*
@@ -73,6 +74,8 @@ private:
 
     void clear_ingredient_list();
 
+    void remove_trailing_zeros(std::string& str);
+
     // menus
     wxMenuBar* menuBar;
     wxMenu* fileMenu;
@@ -90,7 +93,7 @@ private:
     wxCheckBox* not_available_box;
 
     // Recipe Display
-    wxString title_header = wxString("Recipe Title: ");
+    wxString title_header = wxString("       ");
 
     wxRect* background_rect;
     wxStaticText* recipe_title;
