@@ -1,5 +1,9 @@
 // MainFrame.cpp
 //
+// Implementation for MainFrame functions, except 
+// event handlers which are in MainFrame_Events.cpp
+//
+
 #include "MainFrame.hpp"
 #include <wx/wxprec.h>
 #ifndef WX_PRECOMP
@@ -21,18 +25,22 @@ MainFrame::MainFrame(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, 
 
 
 void MainFrame::create_menus(){
-    menuBar = new wxMenuBar;
+    menu_bar = new wxMenuBar;
 
-    fileMenu = new wxMenu;
-    fileMenu->Append(ID_Load_Receipts, "&Load Receipts");
-    fileMenu->Append(ID_Load_Stock, "&Load Stock");
-    fileMenu->Append(ID_Clear, "&Clear Data");
-    fileMenu->AppendSeparator();
-    fileMenu->Append(wxID_EXIT);
+    file_menu = new wxMenu;
+    file_menu->Append(ID_Load_Receipts, "&Load Receipts");
+    file_menu->Append(ID_Load_Stock, "&Load Stock");
+    file_menu->Append(ID_Clear, "&Clear Data");
+    file_menu->AppendSeparator();
+    file_menu->Append(wxID_EXIT);
 
-    menuBar->Append(fileMenu, "&File");
+    edit_menu = new wxMenu;
+    edit_menu->Append(wxID_ANY, "&Add Recipe");
 
-    SetMenuBar(menuBar);
+    menu_bar->Append(file_menu, "&File");
+    menu_bar->Append(edit_menu, "&Edit");
+
+    SetMenuBar(menu_bar);
 
     Bind(wxEVT_MENU, &MainFrame::OnExit, this, wxID_EXIT);
     Bind(wxEVT_MENU, &MainFrame::OnLoadReceipts, this,ID_Load_Receipts);
@@ -158,7 +166,7 @@ void MainFrame::create_panels(){
 }
 
 void MainFrame::create_recipe_display(){
-    background_rect = new wxRect( wxPoint(0,0), wxSize(400,800));
+    
     
     recipe_title = new wxStaticText(recipe_panel, wxID_ANY, title_header, wxPoint(0,40), wxSize(400,-1), wxALIGN_CENTER);
     

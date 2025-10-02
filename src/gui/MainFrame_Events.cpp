@@ -1,6 +1,9 @@
 // MainFrame_Events.cpp
 //
-
+// This file contains all of the event handlers
+// for the MainFrame class
+//
+//
 #include "MainFrame.hpp"
 #include "../logic/Logic.hpp"
 #include <wx/wxprec.h>
@@ -17,8 +20,6 @@ void MainFrame::OnSearch([[maybe_unused]] wxCommandEvent& event){
     wxString search_string = event.GetString();
     
     update_list(search_string);
-    
-
     wxLogStatus(search_string);
 }
 
@@ -73,10 +74,13 @@ void MainFrame::OnSelectRecipe([[maybe_unused]] wxCommandEvent& event){
     recipe_ptr->printRecipe();
     
 
-    
+    // clears everything each time because the code just redraws everything every time
+    // could probably go about it more effeciently but oh well 
     clear_ingredient_list();
     clear_images();
 
+
+    // index of distance between lines, incremented at end of loop
     unsigned int offset = 0;
 
     wxString ingredient_line_string;
@@ -88,14 +92,18 @@ void MainFrame::OnSelectRecipe([[maybe_unused]] wxCommandEvent& event){
     
 
     for(auto it = recipe_ptr->ingredient_vector.begin(); it != recipe_ptr->ingredient_vector.end(); it++){
-        //std::cout << it->getName() << "\n";
+        
         
         ingredient_line_string.Clear();
         
         
 
         quantity = std::round(it->getQuantity(Ingredient::units::imperial)*100)/100;
-       
+        
+
+        // if the quantity is either of these two it means that the quantity read from the json
+        // is not a numeric quantity but some other random unit or who knows
+        // -0.03 comes from converting -1 from metric to oz somewhere in the backend
         if(quantity != -1 && quantity != -0.03){
             quantity_string = std::to_string(quantity);
             remove_trailing_zeros(quantity_string);
@@ -107,6 +115,9 @@ void MainFrame::OnSelectRecipe([[maybe_unused]] wxCommandEvent& event){
         else{
             
             quantity_string = it->getQuantityString();
+
+            // this if statement is needed to switch the order of the output in the case of 
+            // "to top". It would probably be a good idea to write all of this more readibly 
             if(quantity_string == "to top"){
                 ingredient_line_string = wxString("----- " + it->getName() + " to top");
             }else{
@@ -121,9 +132,14 @@ void MainFrame::OnSelectRecipe([[maybe_unused]] wxCommandEvent& event){
 
         ingredient_line_string.Clear();
 
+        // doesnt draw any images if the stock is not loaded yet
         if(!DataManager::getInstance().GetStockVector().empty()){
             image_offset = ingredient_list_vector.back()->GetSize().GetX() + 10;
             
+            // the following gross one liner fills the vector of bitmaps with the corrisponding 
+            // image (check or x) depending on wether the ingredient is available
+            // and sets the position based on the length of the ingredient line string
+            // so that the image is positioned next to the end of the string
             availability_bit_map_vector.emplace_back(new wxStaticBitmap(recipe_panel, wxID_ANY, wxBitmapBundle( (DataManager::getInstance().IsInStock(it->getName()))? *check_mark_image : *x_mark_image), wxPoint(20+image_offset, 154 + offset),wxDefaultSize, wxALIGN_CENTRE ));
         }
         offset += 20;
