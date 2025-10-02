@@ -3,6 +3,7 @@
 #pragma once
 #include <wx/wx.h>
 #include <wx/listctrl.h>
+#include <wx/statbmp.h>
 #include <wx/srchctrl.h>
 #include <vector>
 #include <iostream>
@@ -65,6 +66,7 @@ public:
 
 private:
 
+    void create_images();
     void create_panels();
     void create_menus();
     void create_list();
@@ -73,6 +75,7 @@ private:
     void update_list(wxString search_term = "");
 
     void clear_ingredient_list();
+    void clear_images();
 
     void remove_trailing_zeros(std::string& str);
 
@@ -100,6 +103,11 @@ private:
     wxStaticText* ingredients_title;
     wxStaticText* availability_display;
     std::vector<wxStaticText*> ingredient_list_vector;
+    std::vector<wxStaticBitmap*> availability_bit_map_vector;
+
+    wxImage* check_mark_image;
+    wxImage* x_mark_image;
 
 
+    
 };

@@ -9,13 +9,10 @@
 
  
 
- 
-
-//DataManager::getInstance().LoadRecipes();
-//DataManager::getInstance().LoadStock();
-//DataManager::getInstance().PrintAvailableRecipes();
-
-
+//there used to be a bustling cpp file here
+//now its a ghost town
+//they say everybody left to some macro
+//to seek a different entry point
     
 
 

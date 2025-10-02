@@ -9,10 +9,11 @@
 
 
 
-MainFrame::MainFrame(const wxString& title) : wxFrame(nullptr, wxID_ANY, title){
+MainFrame::MainFrame(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE & ~wxRESIZE_BORDER & ~wxMAXIMIZE_BOX){
     CreateStatusBar();
     create_panels();
     create_menus();
+    create_images();
     create_list();
     create_recipe_display();
 }
@@ -47,7 +48,7 @@ void MainFrame::create_list(){
     recipe_list->InsertColumn(0, "Name", 0, 200);
     recipe_list->SetDoubleBuffered(true);
 
-    search = new wxTextCtrl(list_panel, wxID_ANY, "", wxPoint(0,0), wxSize(200,-1));
+    search = new wxTextCtrl(list_panel, wxID_ANY, wxString("search a recipe..."), wxPoint(0,0), wxSize(200,-1));
     
     fav_button = new wxButton(list_panel, wxID_ANY, "",wxPoint(202,3), wxSize(29,29) );
     available_box = new wxCheckBox(list_panel, ID_Available, "Available", wxPoint(230,4), wxSize(-1,15) );
@@ -158,17 +159,17 @@ void MainFrame::create_panels(){
 void MainFrame::create_recipe_display(){
     background_rect = new wxRect( wxPoint(0,0), wxSize(400,800));
     
-    recipe_title = new wxStaticText(recipe_panel, wxID_ANY, title_header, wxPoint(130,40));
+    recipe_title = new wxStaticText(recipe_panel, wxID_ANY, title_header, wxPoint(0,40), wxSize(400,-1), wxALIGN_CENTER);
     
     wxFont title_font = recipe_title->GetFont();
     title_font.SetPointSize(20);
     recipe_title->SetFont(title_font);
 
-
+    
     ingredients_title  = new wxStaticText(recipe_panel, wxID_ANY, wxString("Ingredients:"), wxPoint(20,100));
     ingredients_title->SetFont(title_font);
     availability_display;
-    ingredient_list_vector;
+    
 }
 
 
@@ -177,6 +178,15 @@ void MainFrame::clear_ingredient_list(){
         ingredient_list_vector[i]->Destroy();
     }
     ingredient_list_vector.clear();
+}
+
+void MainFrame::clear_images(){
+    for(size_t i = 0; i < availability_bit_map_vector.size(); i++){
+        availability_bit_map_vector[i]->Destroy();
+       
+        
+    }
+    availability_bit_map_vector.clear();
 }
 
 void MainFrame::remove_trailing_zeros(std::string& str) {
@@ -207,4 +217,18 @@ void MainFrame::remove_trailing_zeros(std::string& str) {
     if(str.at(str.size()-1) == '.' ){
         str.pop_back();
     }
+}
+
+void MainFrame::create_images(){
+    wxInitAllImageHandlers();
+
+    check_mark_image = new wxImage();
+    x_mark_image = new wxImage();
+
+    check_mark_image->LoadFile(wxT("files/check_mark.png"), wxBITMAP_TYPE_PNG);
+    x_mark_image->LoadFile(wxT("files/x_mark.png"), wxBITMAP_TYPE_PNG);
+
+    check_mark_image->Rescale(wxSize(10,10), wxIMAGE_QUALITY_HIGH);
+    x_mark_image->Rescale(wxSize(10,10), wxIMAGE_QUALITY_HIGH);
+
 }

@@ -72,19 +72,27 @@ void MainFrame::OnSelectRecipe([[maybe_unused]] wxCommandEvent& event){
 
     recipe_ptr->printRecipe();
     
+
+    
     clear_ingredient_list();
+    clear_images();
+
     unsigned int offset = 0;
 
     wxString ingredient_line_string;
     
+    unsigned int image_offset;
     double quantity;
     std::string quantity_string;
+
+    
+
     for(auto it = recipe_ptr->ingredient_vector.begin(); it != recipe_ptr->ingredient_vector.end(); it++){
         //std::cout << it->getName() << "\n";
-       
+        
         ingredient_line_string.Clear();
         
-
+        
 
         quantity = std::round(it->getQuantity(Ingredient::units::imperial)*100)/100;
        
@@ -109,10 +117,16 @@ void MainFrame::OnSelectRecipe([[maybe_unused]] wxCommandEvent& event){
         
         
         ingredient_list_vector.push_back( new wxStaticText(recipe_panel, wxID_ANY, ingredient_line_string, wxPoint(20,150 + offset)));
-        offset += 20;
+        
 
         ingredient_line_string.Clear();
-        
+
+        if(!DataManager::getInstance().GetStockVector().empty()){
+            image_offset = ingredient_list_vector.back()->GetSize().GetX() + 10;
+            
+            availability_bit_map_vector.push_back(new wxStaticBitmap(recipe_panel, wxID_ANY, wxBitmapBundle( (DataManager::getInstance().IsInStock(it->getName()))? *check_mark_image : *x_mark_image), wxPoint(20+image_offset, 154 + offset),wxDefaultSize, wxALIGN_CENTRE ));
+        }
+        offset += 20;
     }
     
 
