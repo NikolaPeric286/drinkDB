@@ -14,7 +14,11 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../output")
 set(wxBUILD_SHARED OFF CACHE BOOL "" FORCE)
 set(wxBUILD_SAMPLES OFF CACHE BOOL "" FORCE)
 set(wxBUILD_TESTS OFF CACHE BOOL "" FORCE)
-set(wxBUILD_TOOLKIT gtk3 CACHE STRING "" FORCE)
+
+if(UNIX)
+  set(wxBUILD_TOOLKIT gtk3 CACHE STRING "" FORCE)
+endif()
+
 set(wxUSE_PRECOMP ON CACHE BOOL "" FORCE)
 set(wxUSE_NET OFF CACHE BOOL "" FORCE)
 set(wxUSE_WEBREQUEST OFF CACHE BOOL "" FORCE)
@@ -26,8 +30,11 @@ add_subdirectory(external/wxWidgets)
 add_subdirectory(external/json)
 add_subdirectory(src)
 
-add_executable(drinkDB src/main.cpp )
+add_executable(drinkDB src/gui/App.cpp )
 
+if(WIN32)
+  target_sources(drinkDB PRIVATE src/resource.rc)
+endif()
 
 
 target_link_libraries(drinkDB PRIVATE
