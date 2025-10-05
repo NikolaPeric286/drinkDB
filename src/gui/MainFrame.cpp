@@ -56,11 +56,11 @@ void MainFrame::create_list(){
     recipe_list->InsertColumn(0, "Name", 0, 200);
     recipe_list->SetDoubleBuffered(true);
 
-    search = new wxTextCtrl(list_panel, wxID_ANY, wxString("search a recipe..."), wxPoint(0,0), wxSize(200,-1));
+    search = new wxTextCtrl(list_panel, wxID_ANY, wxString("search a recipe..."), wxPoint(0,0), wxSize(200,35));
     
     fav_button = new wxButton(list_panel, wxID_ANY, "",wxPoint(202,3), wxSize(29,29) );
-    available_box = new wxCheckBox(list_panel, ID_Available, "Available", wxPoint(230,4), wxSize(-1,15) );
-    not_available_box = new wxCheckBox(list_panel, ID_Not_Available, "Not Available", wxPoint(230,19), wxSize(-1,15));
+    available_box = new wxCheckBox(list_panel, ID_Available, "Available", wxPoint(230,4), wxSize(-1,15) ); //////
+    not_available_box = new wxCheckBox(list_panel, ID_Not_Available, "Not Available", wxPoint(230,19), wxSize(-1,15)); /////////
 
     available_box->SetValue(true);
     not_available_box->SetValue(true);
