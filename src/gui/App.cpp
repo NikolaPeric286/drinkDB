@@ -24,7 +24,7 @@ bool App::OnInit() {
 
 #endif
 
-#ifdef _WIN32_
+#ifdef _WIN32
 
     bool App::OnInit() {
     MainFrame* mainFrame = new MainFrame("DrinkDB");
