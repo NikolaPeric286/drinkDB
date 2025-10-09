@@ -5,7 +5,10 @@
                 {"lime" : "1oz"},
                 {"light rum": "2oz"},
                 {"simple syrup" : ".5oz"}
-            ]
+            ],
+            "garnish" : "",
+            "glass" : "coupe",
+            "extra notes" : "shaken"
         },
         "negroni" : {
             "ingredients" : [
@@ -23,7 +26,10 @@
                 {"vodka": "2oz"},
                 {"lime" : "0.5oz"},
                 {"mint" : "10 leaves"}
-            ]
+            ],
+            "garnish" : "mint leaves",
+            "glass" : "moscow mule glass",
+            "extra notes" : "made in the glass"
         },
         "martinez" : {
             "ingredients" : [
@@ -31,7 +37,10 @@
                 {"sweet vermouth": "1.5oz"},
                 {"luxardo" : ".25oz"},
                 {"angostura bitters" : "2 dashes"}
-            ]
+            ],
+            "garnish" : "orange twist",
+            "glass" : "coupe",
+            "extra notes" : "stirred"
         },
         "gin fizz" : {
             "ingredients" : [
@@ -40,28 +49,40 @@
                 {"simple syrup" : "1oz"},
                 {"egg white" : "1oz"},
                 {"club soda" : "2oz"}
-            ]
+            ],
+            "garnish" : "lemon twist",
+            "glass" : "collins glass",
+            "extra notes" : "shaken w/ dry shake"
         },
         "manhattan" : {
             "ingredients" : [
                 {"rye whiskey" : "2oz"},
                 {"sweet vermouth": "1oz"},
                 {"angostura bitters" : "2 dashes"}
-            ]
+            ],
+            "garnish" : "luxardo cherry",
+            "glass" : "coupe",
+            "extra notes" : "stirred"
         },
         "martini" : {
             "ingredients" : [
                 {"gin" : "2.5oz"},
                 {"dry  vermouth": "0.5oz"},
                 {"orange bitters" : "1 dashes"}
-            ]
+            ],
+            "garnish" : "lemon twist",
+            "glass" : "martini glass",
+            "extra notes" : "stirred"
         },
         "old fashioned" : {
             "ingredients" : [
                 {"bourbon" : "2oz"},
                 {"simple syrup": ".25oz"},
                 {"angostura bitters" : "3 dashes"}
-            ]
+            ],
+            "garnish" : "orange twist",
+            "glass" : "rocks glass",
+            "extra notes" : "made in the glass"
         },
         "whisky sour" : {
             "ingredients" : [
@@ -69,7 +90,10 @@
                 {"lemon": "0.75oz"},
                 {"simple syrup" : ".5oz"},
                 {"egg white" : ".5oz"}
-            ]
+            ],
+            "garnish" : "lemon wedge and cherry",
+            "glass" : "rocks glass",
+            "extra notes" : "stirred"
         },
         "tom collins" : {
             "ingredients" : [
@@ -77,7 +101,10 @@
                 {"lemon": "1oz"},
                 {"simple syrup" : ".5oz"},
                 {"club  soda" : "4oz"}
-            ]
+            ],
+            "garnish" : "lemon wedge and cherry",
+            "glass" : "collins glass",
+            "extra notes" : "shaken"
         },
         "paloma" : {
             "ingredients" : [
@@ -85,14 +112,20 @@
                 {"lime": "0.5oz"},
                 {"grapefruit" : "4oz"},
                 {"salt" : "1 pinch"}
-            ]
+            ],
+            "garnish" : "salt rim and lime wedge",
+            "glass" : "collins glass",
+            "extra notes" : "made in the glass"
         },
         "mint julep" : {
             "ingredients" : [
                 {"bourbon" : "2oz"},
                 {"simple syrup": "0.25oz"},
                 {"mint" : "8 leaves"}
-            ]
+            ],
+            "garnish" : "mint leaves",
+            "glass" : "rocks glass",
+            "extra notes" : "made in the glass"
         },
         "last word" : {
             "ingredients" : [
@@ -100,7 +133,10 @@
                 {"green chartreuse": ".75oz"},
                 {"luxardo" : ".75oz"},
                 {"lime" : ".75oz"}
-            ]
+            ],
+            "garnish" : "luxardo cherry",
+            "glass" : "coupe",
+            "extra notes" : "shaken"
         },
         "mohito" : {
             "ingredients" : [
@@ -109,14 +145,20 @@
                 {"lime" : ".75oz"},
                 {"club soda" : "to top"},
                 {"mint": "3 leaves"}
-            ]
+            ],
+            "garnish" : "mint leaves and lime wedge",
+            "glass" : "collins glass",
+            "extra notes" : "made in the glass"
         },
         "gimlet" : {
             "ingredients" : [
                 {"gin" : "2.5oz"},
                 {"lime": "0.5oz"},
                 {"simple syrup" : "0.5oz"}
-            ]
+            ],
+            "garnish" : "lime wedge",
+            "glass" : "coupe",
+            "extra notes" : "shaken"
         },
         "margarita" : {
             "ingredients" : [
@@ -124,14 +166,30 @@
                 {"triple sec": "0.5oz"},
                 {"lime" : "1oz"},
                 {"agave syrup" : "0.5oz"}
-            ]
+            ],
+            "garnish" : "salt rim, and lime wheel",
+            "glass" : "collins glass",
+            "extra notes" : "shaken"
         },
         "americano" : {
             "ingredients" : [
                 {"campari" : "1.5oz"},
                 {"sweet vermouth": "1.5oz"},
                 {"club soda" : "to top"}
-            ]
+            ],
+            "garnish" : "orange wedge",
+            "glass" : "collins glass",
+            "extra notes" : "made in the glass"
+        },
+        "beericano" : {
+            "ingredients" : [
+                {"campari" : "1.5oz"},
+                {"sweet vermouth": "1.5oz"},
+                {"beer" : "to top"}
+            ],
+            "garnish" : "orange wedge",
+            "glass" : "collins glass",
+            "extra notes" : "made in the glass"
         },
         "clover club" : {
             "ingredients" : [
@@ -141,7 +199,10 @@
                 {"simple sryup" : "0.5oz"},
                 {"raspberries" : "3 berries"},
                 {"egg white" : "0.5oz"}
-            ]
+            ],
+            "garnish" : "raspberrier",
+            "glass" : "coupe",
+            "extra notes" : "shaken w/ dry shake"
         },
         "jasmine" : {
             "ingredients" : [
@@ -149,7 +210,10 @@
                 {"campari": ".25oz"},
                 {"triple sec" : ".25oz"},
                 {"lemon" : "0.75oz"}
-            ]
+            ],
+            "garnish" : "",
+            "glass" : "coupe",
+            "extra notes" : "shaken"
         },
         "neptune's garden" : {
             "ingredients" : [
@@ -158,7 +222,10 @@
                 {"elderflower syrup" : "0.5oz"},
                 {"blue curacao" : "0.5oz"},
                 {"egg white" : "0.5oz"}
-            ]
+            ],
+            "garnish" : "",
+            "glass" : "rocks glass",
+            "extra notes" : "shaken w/ dry shake"
         },
         "red lion" : {
             "ingredients" : [
@@ -169,7 +236,10 @@
                 {"grenadine" : "2.5ml"},
                 {"simple syrup" : "2.5ml"},
                 {"orange bitters" : "1 dash"}
-            ]
+            ],
+            "garnish" : "",
+            "glass" : "martini glass",
+            "extra notes" : "shaken"
         },
         "lava lady" : {
             "ingredients" : [
@@ -177,7 +247,10 @@
                 {"lemon": "1oz"},
                 {"triple sec" : "0.5oz"},
                 {"grenadine" : "0.75oz"}
-            ]
+            ],
+            "garnish" : "",
+            "glass" : "coupe",
+            "extra notes" : "shaken"
         },
         "kamikazi" : {
             "ingredients" : [
@@ -185,24 +258,30 @@
                 {"lime": "0.75oz"},
                 {"triple sec" : "0.75oz"}
                 
-            ]
+            ],
+            "garnish" : "",
+            "glass" : "shot glass",
+            "extra notes" : "shaken"
         },
         "lemon drop" : {
             "ingredients" : [
                 {"vodka" : "2.5oz"},
                 {"lemon": "1oz"},
                 {"simple syrup" : "1oz"}
-            ]
+            ],
+            "garnish" : "",
+            "glass" : "shot glass",
+            "extra notes" : "shaken"
         }
     },
     "stock" : [
         {"light rum" : false},
         {"vodka" : true},
-        {"tequila" : false},
+        {"tequila" : true},
         {"gin" : true},
         {"lime" : true},
         {"grenadine" : true},
-        {"sweet vermouth" : true},
+        {"sweet vermouth" : false},
         {"dry vermouth" : false},
         {"campari" : true},
         {"club soda" : true},
@@ -223,7 +302,7 @@
         {"rye whisky" : false},
         {"bourbon" : false},
         {"agave syrup" : false},
-        {"raspberries" : true},
+        {"raspberries" : false},
         {"green chartreuse" : false}
         
     ]

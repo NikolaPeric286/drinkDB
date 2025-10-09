@@ -144,6 +144,41 @@ void MainFrame::OnSelectRecipe([[maybe_unused]] wxCommandEvent& event){
         }
         offset += 20;
     }
+
+    std::string glass_string = recipe_ptr->glass;
+    std::string garnish_string = recipe_ptr->garnish;
+    std::string extra_notes_string = recipe_ptr->extra_notes;
+
+    
+    
+
+    offset+=20;
+    if(!glass_string.empty()){
+        glass->SetLabel(wxString("Glass: " + glass_string));
+        glass->SetPosition(wxPoint(20, 150+offset));
+        offset+=20;
+    }
+    else{
+        glass->SetLabel("");
+    }
+   
+    if(!garnish_string.empty()){
+        garnish->SetLabel(wxString("Garnish: " +  garnish_string));
+        garnish->SetPosition(wxPoint(20, 150+offset));
+        offset+=20;
+    }
+    else{
+        garnish->SetLabel("");
+    }
+    
+    if(!extra_notes_string.empty()){
+        extra_notes->SetLabel(wxString("Extra Notes: " + extra_notes_string));
+        extra_notes->SetPosition(wxPoint(20, 150+offset));
+    }
+    else{
+        extra_notes->SetLabel("");
+    }
+    
     
 
 }

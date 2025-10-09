@@ -177,7 +177,10 @@ void MainFrame::create_recipe_display(){
     
     ingredients_title  = new wxStaticText(recipe_panel, wxID_ANY, wxString("Ingredients:"), wxPoint(20,100));
     ingredients_title->SetFont(title_font);
-   
+    
+    glass = new wxStaticText(recipe_panel, wxID_ANY, "");
+    garnish = new wxStaticText(recipe_panel, wxID_ANY, "");
+    extra_notes = new wxStaticText(recipe_panel, wxID_ANY, "");
     
 }
 

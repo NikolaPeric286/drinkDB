@@ -132,9 +132,9 @@ private:
     // vector of images corrisponding to the x or check for each ingredient
     std::vector<wxStaticBitmap*> availability_bit_map_vector;
 
-    wxStaticText* extra_notes;
-    wxStaticText* glass_title;
-    wxStaticText* garnish_title;
+    wxStaticText* extra_notes = nullptr;
+    wxStaticText* glass = nullptr;
+    wxStaticText* garnish = nullptr;
     // Images 
 
     wxImage* check_mark_image;
