@@ -12,7 +12,10 @@
                 {"campari" : "1oz"},
                 {"sweet vermouth": "1oz"},
                 {"gin" : "1oz"}
-            ]
+            ],
+            "garnish" : "orange twist",
+            "glass" : "rocks glass",
+            "extra notes" : "stirred"
         },
         "moscow mule" : {
             "ingredients" : [

@@ -29,4 +29,7 @@ void Recipe::printRecipe(Ingredient::units unit) const{
         std::cout << " of " << it->getName() << "\n";
     }
 
+    std::cout << "\tGarnish: " << garnish << "\n";
+    std::cout << "\tGlass: " << glass << "\n";
+    std::cout << "\tExtra Notes: " << extra_notes << "\n";
 }

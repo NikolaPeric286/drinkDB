@@ -126,12 +126,15 @@ private:
     
     wxStaticText* recipe_title;
     wxStaticText* ingredients_title;
-    wxStaticText* availability_display;
+    
     // vector of text corrisponding to an ingredient in the selected recipe
     std::vector<wxStaticText*> ingredient_list_vector;
     // vector of images corrisponding to the x or check for each ingredient
     std::vector<wxStaticBitmap*> availability_bit_map_vector;
 
+    wxStaticText* extra_notes;
+    wxStaticText* glass_title;
+    wxStaticText* garnish_title;
     // Images 
 
     wxImage* check_mark_image;

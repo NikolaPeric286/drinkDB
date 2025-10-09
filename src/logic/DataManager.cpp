@@ -62,6 +62,27 @@ void DataManager::LoadRecipes(){
                 //std::cout << "  " << name << " : " << amount << "\n";
             }
         }
+        
+            
+        try{
+            temp_recipe.garnish = reciepeData["garnish"];
+        }
+        catch(std::exception&e ){
+
+        }
+        try{
+            temp_recipe.glass = reciepeData["glass"] ;
+        }
+        catch(std::exception&e ){
+            
+        }
+        try{
+            temp_recipe.extra_notes = reciepeData["extra notes"];
+        }
+        catch(std::exception&e ){
+            
+        }
+
         recipe_vector.push_back(temp_recipe);
     }
     file.close();
