@@ -192,3 +192,10 @@ void MainFrame::OnClickSearch([[maybe_unused]] wxMouseEvent& event){
     event.Skip();
     Thaw();
 }
+
+void MainFrame::OnAdd([[maybe_unused]] wxCommandEvent& event){
+    wxLogStatus("Opening Add Recipe Menu");
+
+    add_recipe_frame_ptr->Show();
+
+}

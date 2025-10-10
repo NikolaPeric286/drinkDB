@@ -20,6 +20,8 @@ MainFrame::MainFrame(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, 
     create_images();
     create_list();
     create_recipe_display();
+    create_add_recipe_window();
+
 }
 
 
@@ -35,7 +37,9 @@ void MainFrame::create_menus(){
     file_menu->Append(wxID_EXIT);
 
     edit_menu = new wxMenu;
-    edit_menu->Append(wxID_ANY, "&Add Recipe");
+    edit_menu->Append(ID_Add, "&Add Recipe");
+    edit_menu->Append(wxID_ANY, "&Edit Stock");
+    edit_menu->Append(wxID_ANY, "&Delete Item");
 
     menu_bar->Append(file_menu, "&File");
     menu_bar->Append(edit_menu, "&Edit");
@@ -46,6 +50,7 @@ void MainFrame::create_menus(){
     Bind(wxEVT_MENU, &MainFrame::OnLoadReceipts, this,ID_Load_Receipts);
     Bind(wxEVT_MENU, &MainFrame::OnLoadStock, this,ID_Load_Stock);
     Bind(wxEVT_MENU, &MainFrame::OnClear, this, ID_Clear);
+    Bind(wxEVT_MENU, &MainFrame::OnAdd, this, ID_Add);
     
 }
 
@@ -72,6 +77,13 @@ void MainFrame::create_list(){
     search->Bind(wxEVT_LEFT_DOWN, &MainFrame::OnClickSearch, this);
 
 }
+
+void MainFrame::create_add_recipe_window(){
+    add_recipe_frame_ptr = new AddRecipeFrame(this);
+    add_recipe_frame_ptr->Hide();
+}
+
+
 
 void MainFrame::update_list(wxString search_term){
     recipe_list->DeleteAllItems();

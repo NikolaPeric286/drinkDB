@@ -19,6 +19,8 @@ bool App::OnInit() {
     //wxImage::AddHandler(new wxPNGHandler);
     
     
+
+    
     return true;
 }
 

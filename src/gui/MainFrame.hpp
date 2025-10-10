@@ -10,6 +10,7 @@
 #include <string>
 #include <sstream>
 #include "../logic/Logic.hpp"
+#include "AddRecipeFrame.hpp"
 
 /*
 This header contains the MainFrame class which encompasses the behavior of the GUI.
@@ -31,7 +32,8 @@ enum IDS {
     ID_Clear,
     ID_Available,
     ID_Not_Available,
-    ID_Recipe_List
+    ID_Recipe_List,
+    ID_Add
 };
 
 class MainFrame : public wxFrame{
@@ -42,17 +44,20 @@ public:
 
     // MENU EVENTS ----------------------------
 
-    // Exit event handler
+    // File| Exit event handler
     void OnExit( [[maybe_unused]] wxCommandEvent& event )  ; 
 
-    // Loads recipes into DataMangager and imports the recipes from DataManager into the ListCtrl using update_list
+    // File| Loads recipes into DataMangager and imports the recipes from DataManager into the ListCtrl using update_list
     void OnLoadReceipts([[maybe_unused]] wxCommandEvent& event);
 
-    // Loads stock of ingredients into DataMangager and imports the recipes from DataManager into the ListCtrl using update_list
+    // File| Loads stock of ingredients into DataMangager and imports the recipes from DataManager into the ListCtrl using update_list
     void OnLoadStock([[maybe_unused]] wxCommandEvent& event);
 
-    // Clears the ListCtrl without changing the data in DataManager
+    // File| Clears the ListCtrl without changing the data in DataManager
     void OnClear([[maybe_unused]] wxCommandEvent& event);
+
+    // Edit| displays the add recipe frame
+    void OnAdd([[maybe_unused]] wxCommandEvent& event);
     
     // LIST PANEL EVENTS --------------------
     // Handles user typing in box menu
@@ -101,6 +106,13 @@ private:
     
     // does what the title is
     void remove_trailing_zeros(std::string& str);
+
+    void create_add_recipe_window();
+
+
+    AddRecipeFrame* add_recipe_frame_ptr;
+
+
 
     // menus
 
