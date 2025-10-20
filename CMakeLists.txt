@@ -24,10 +24,15 @@ set(wxUSE_NET OFF CACHE BOOL "" FORCE)
 set(wxUSE_WEBREQUEST OFF CACHE BOOL "" FORCE)
 
 
+find_package(wxWidgets COMPONENTS wx::core wx::base )
 
-
-add_subdirectory(external/wxWidgets)
+if(NOT wxWidgets_FOUND)
+  message("wxWidgets not found")
+  add_subdirectory(external/wxWidgets)
+endif()
 add_subdirectory(external/json)
+
+
 add_subdirectory(src)
 
 add_executable(drinkDB src/gui/App.cpp )

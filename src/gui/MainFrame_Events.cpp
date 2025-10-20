@@ -199,3 +199,10 @@ void MainFrame::OnAdd([[maybe_unused]] wxCommandEvent& event){
     add_recipe_frame_ptr->Show();
 
 }
+
+void MainFrame::OnSave([[maybe_unused]] wxCommandEvent& event){
+    if(!DataManager::getInstance().GetRecipeVector().empty()){
+        DataManager::getInstance().PrintToFile();       
+    }
+}
+

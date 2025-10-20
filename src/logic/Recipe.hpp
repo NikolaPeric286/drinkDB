@@ -4,6 +4,10 @@
 #include <vector>
 #include <cmath>
 #include "Ingredient.hpp"
+#include "trailing_zeros.hpp"
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
 
 struct Recipe{
     Recipe();
@@ -15,5 +19,7 @@ struct Recipe{
     std::string extra_notes;
 
     void printRecipe(Ingredient::units unit = Ingredient::units::metric) const;
+
+    json getJsonObject() const;
 
 };

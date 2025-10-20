@@ -156,4 +156,43 @@ bool DataManager::IsInStock(const std::string& ingredient_name) const{
  }
  std::vector<Ingredient>& DataManager::GetStockVector(){
     return stock_vector;
- }
+}
+
+void DataManager::AddRecipe(Recipe input_recipe){
+    recipe_vector.push_back(input_recipe);
+
+}
+
+void DataManager::PrintToFile(){
+    std::ofstream file(file_path);
+    if(!file.is_open()){
+        std::cerr << "ERROR Failed to open file " << file_path << " \n";
+        return ;
+    }
+    
+    std::cout << "Opened " << file_path << "\n";
+
+    json data;
+    std::cout << "Test Point 1\n";
+    std::cout << recipe_vector.size() << std::endl;
+
+    for (auto it = recipe_vector.begin(); it != recipe_vector.end(); it++){
+        
+        data["recipes"][it->name] = it->getJsonObject();
+    }
+
+    
+
+    json temp_ingredient;
+
+    for(auto it = stock_vector.begin(); it!=stock_vector.end(); it++){
+        temp_ingredient[it->getName()] = (it->present)? true : false;
+        data["stock"].push_back(temp_ingredient);
+        temp_ingredient.clear();
+    }
+
+    file << std::setw(4) << data;
+    file.close();
+}
+
+

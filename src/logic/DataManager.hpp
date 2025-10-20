@@ -31,6 +31,8 @@ public:
 
     void SetPath(const std::string& path) {file_path = path;}
 
+    void AddRecipe(Recipe input_recipe);
+    void PrintToFile();
 
     void Clear(){ recipe_vector.clear(); stock_vector.clear();}
 

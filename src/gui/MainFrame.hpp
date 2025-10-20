@@ -33,7 +33,8 @@ enum IDS {
     ID_Available,
     ID_Not_Available,
     ID_Recipe_List,
-    ID_Add
+    ID_Add,
+    ID_Save
 };
 
 class MainFrame : public wxFrame{
@@ -75,6 +76,9 @@ public:
     // clears the placeholder text in the search bar when the user clicks on it
     void OnClickSearch([[maybe_unused]] wxMouseEvent& event);
     
+    void OnSave([[maybe_unused]] wxCommandEvent& event);
+
+    
 
     // RECIPE PANEL EVENTS -----------------
     
@@ -105,7 +109,7 @@ private:
     void clear_images();
     
     // does what the title is
-    void remove_trailing_zeros(std::string& str);
+    
 
     void create_add_recipe_window();
 

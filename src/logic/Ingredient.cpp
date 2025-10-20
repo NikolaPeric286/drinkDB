@@ -48,4 +48,3 @@ double Ingredient::getQuantity(units unit) const{
 std::string Ingredient::getName() const{
     return name;
 }
-

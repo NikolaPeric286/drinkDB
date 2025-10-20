@@ -22,6 +22,17 @@ MainFrame::MainFrame(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, 
     create_recipe_display();
     create_add_recipe_window();
 
+    
+    DataManager::getInstance().LoadRecipes();
+    wxLogStatus("Loaded Receipts");
+    update_list();
+
+
+    DataManager::getInstance().LoadStock();
+    wxLogStatus("Loaded Stock");
+    update_list();
+
+
 }
 
 
@@ -40,6 +51,7 @@ void MainFrame::create_menus(){
     edit_menu->Append(ID_Add, "&Add Recipe");
     edit_menu->Append(wxID_ANY, "&Edit Stock");
     edit_menu->Append(wxID_ANY, "&Delete Item");
+    edit_menu->Append(ID_Save, "&Save Changes");
 
     menu_bar->Append(file_menu, "&File");
     menu_bar->Append(edit_menu, "&Edit");
@@ -51,7 +63,7 @@ void MainFrame::create_menus(){
     Bind(wxEVT_MENU, &MainFrame::OnLoadStock, this,ID_Load_Stock);
     Bind(wxEVT_MENU, &MainFrame::OnClear, this, ID_Clear);
     Bind(wxEVT_MENU, &MainFrame::OnAdd, this, ID_Add);
-    
+    Bind(wxEVT_MENU, &MainFrame::OnSave, this, ID_Save);    
 }
 
 void MainFrame::create_list(){
@@ -213,35 +225,7 @@ void MainFrame::clear_images(){
     availability_bit_map_vector.clear();
 }
 
-void MainFrame::remove_trailing_zeros(std::string& str) {
 
-    // ChatGPT Wrote this!
-
-    // Find the index of the last character that is NOT '0'
-    size_t last_non_zero = str.find_last_not_of('0');
-
-    // If a non-zero character was found, erase everything after it.
-    // If the string is all zeros, last_non_zero will be string::npos.
-    // In that case, we clear the string or leave a single '0' if desired.
-    if (last_non_zero != std::string::npos) {
-        str.erase(last_non_zero + 1);
-    } else {
-        // Handle cases where the string is "0", "00", etc.
-        // You might want to clear it or leave a single "0".
-        // For example, to leave "0":
-        if (!str.empty()) {
-            str = "0";
-        }
-        // Or to clear it completely:
-        // str.clear();
-    }
-
-
-    // I added this to remove the . if the number has no decimal 
-    if(str.at(str.size()-1) == '.' ){
-        str.pop_back();
-    }
-}
 
 void MainFrame::create_images(){
     wxInitAllImageHandlers();

@@ -21,6 +21,8 @@ private:
 
     void create_controls();
 
+    wxBoxSizer* box_sizer;
+
     wxPanel* main_panel;
 
     wxTextCtrl* recipe_name_input_box;
