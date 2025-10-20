@@ -15,7 +15,15 @@ class AddRecipeFrame : public wxFrame{
 public:
     AddRecipeFrame(wxFrame* frame_ptr);
 
+    enum IDs{
+        ID_recipe_name_input_box=2,
+        ID_ingredient_name_input_box,
+        ID_garnish_input_box,
+        ID_glass_input_box,
+        ID_extra_notes_input_box
+    };
 
+    void OnSelectBox([[maybe_unused]] wxMouseEvent& event);
 
 private:
 

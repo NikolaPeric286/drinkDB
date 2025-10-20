@@ -68,7 +68,7 @@ void MainFrame::create_menus(){
 
 void MainFrame::create_list(){
     recipe_list = new wxListCtrl(list_panel, ID_Recipe_List, wxPoint(0,35), wxSize(400,700), wxLC_REPORT | wxLC_HRULES | wxLC_VRULES);
-    
+    recipe_list->SetDoubleBuffered(1);
     recipe_list->InsertColumn(1, "Availablity", 0, 200);
     recipe_list->InsertColumn(0, "Name", 0, 200);
     recipe_list->SetDoubleBuffered(true);
@@ -185,6 +185,10 @@ void MainFrame::update_list(wxString search_term){
 void MainFrame::create_panels(){
     main_panel = new wxPanel(this);
     list_panel = new wxPanel(main_panel, wxID_ANY, wxDefaultPosition, wxSize(400,800));
+    
+    list_panel->SetDoubleBuffered(true);
+    main_panel->Bind(wxEVT_ERASE_BACKGROUND, [](wxEraseEvent&){ /* swallow */ });    
+    list_panel->Bind(wxEVT_ERASE_BACKGROUND, [](wxEraseEvent&){ /* swallow */ });
     recipe_panel =  new wxPanel(main_panel, wxID_ANY, wxPoint(400,0), wxSize(400,800));
 
 }

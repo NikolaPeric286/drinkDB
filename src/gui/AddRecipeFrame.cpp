@@ -27,14 +27,28 @@ void AddRecipeFrame::create_controls(){
     glass_input_box = new wxTextCtrl(main_panel, wxID_ANY, "Glass");
     extra_notes_input_box = new wxTextCtrl(main_panel, wxID_ANY, "Extra Notes");
 
+    ingredient_list_display;
+
     box_sizer->Add(recipe_name_input_box, 10,  wxEXPAND | wxALL, 2);
     box_sizer->Add(ingredient_name_input_box, 10,  wxEXPAND | wxALL, 2);
     box_sizer->Add(garnish_input_box, 10,  wxEXPAND | wxALL, 2);
     box_sizer->Add(glass_input_box, 10,  wxEXPAND | wxALL, 2);
     box_sizer->Add(extra_notes_input_box, 10,  wxEXPAND | wxALL, 2);
 
-    ingredient_list_display;
+    recipe_name_input_box->Bind(wxEVT_LEFT_DOWN, &AddRecipeFrame::OnSelectBox, this);
+    ingredient_name_input_box->Bind(wxEVT_LEFT_DOWN, &AddRecipeFrame::OnSelectBox, this);
+    garnish_input_box->Bind(wxEVT_LEFT_DOWN, &AddRecipeFrame::OnSelectBox, this);
+    glass_input_box->Bind(wxEVT_LEFT_DOWN, &AddRecipeFrame::OnSelectBox, this);
+    extra_notes_input_box->Bind(wxEVT_LEFT_DOWN, &AddRecipeFrame::OnSelectBox, this);
 
     save_button;
     cancel_button;
+}
+
+void AddRecipeFrame::OnSelectBox([[maybe_unused]] wxMouseEvent& event){
+    
+    wxTextCtrl* textCtrl = wxDynamicCast(event.GetEventObject(), wxTextCtrl);
+    textCtrl->SetValue("");
+    event.Skip();
+    
 }
