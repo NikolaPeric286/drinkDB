@@ -22,4 +22,13 @@ struct Recipe{
 
     json getJsonObject() const;
 
+    bool operator==(const Recipe& other) const {
+        return 
+               name == other.name
+            && garnish == other.garnish
+            && glass == other.glass
+            && extra_notes ==  other.extra_notes
+            && ingredient_vector == other.ingredient_vector;
+    }
+
 };

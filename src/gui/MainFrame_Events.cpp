@@ -206,3 +206,39 @@ void MainFrame::OnSave([[maybe_unused]] wxCommandEvent& event){
     }
 }
 
+
+void MainFrame::OnDelete([[maybe_unused]] wxCommandEvent& event){
+
+    int selected_item_count = recipe_list->GetSelectedItemCount();
+
+    wxString message = wxString::Format( "Are you sure you want to delete %d %s?", selected_item_count, selected_item_count == 1 ? "recipe" : "recipes");
+    int response = wxMessageBox(message, "", wxYES_NO | wxICON_QUESTION);
+
+    if (response == wxNO){
+        return;
+    }
+
+
+
+    long item = -1;
+    wxUIntPtr item_data;
+    while(1){
+        item = recipe_list->GetNextItem(item, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+
+        if (item == -1) break;
+
+        item_data = recipe_list->GetItemData(item);
+
+        auto it = std::find(DataManager::getInstance().GetRecipeVector().begin(), DataManager::getInstance().GetRecipeVector().end(), *reinterpret_cast<Recipe*>(item_data));
+        
+        if( it != DataManager::getInstance().GetRecipeVector().end()){
+            DataManager::getInstance().GetRecipeVector().erase(it);
+        }
+    }
+    update_list();
+
+    message = wxString::Format("Deleted %d %s.", selected_item_count, selected_item_count == 1 ? "recipe" : "recipes");
+    wxMessageBox(message,  "", wxOK);
+
+
+}

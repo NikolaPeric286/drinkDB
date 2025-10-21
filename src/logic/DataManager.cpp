@@ -149,12 +149,13 @@ bool DataManager::IsInStock(const std::string& ingredient_name) const{
         }
     }
     return false;
- }
+}
 
- std::vector<Recipe>& DataManager::GetRecipeVector(){
+std::vector<Recipe>& DataManager::GetRecipeVector(){
     return recipe_vector;
- }
- std::vector<Ingredient>& DataManager::GetStockVector(){
+}
+
+std::vector<Ingredient>& DataManager::GetStockVector(){
     return stock_vector;
 }
 

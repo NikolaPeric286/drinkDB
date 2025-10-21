@@ -36,7 +36,8 @@ enum IDS {
     ID_Recipe_List,
     ID_Add,
     ID_Save,
-    ID_Search
+    ID_Search,
+    ID_Delete
 };
 
 class MainFrame : public wxFrame{
@@ -78,9 +79,10 @@ public:
     // clears the placeholder text in the search bar when the user clicks on it
     void OnClickSearch([[maybe_unused]] wxMouseEvent& event);
     
+    // handles when user clicks the save button, outputs to the json file
     void OnSave([[maybe_unused]] wxCommandEvent& event);
 
-    
+    void OnDelete([[maybe_unused]] wxCommandEvent& event);
 
     // RECIPE PANEL EVENTS -----------------
     

@@ -28,6 +28,13 @@ public:
     
     std::string getQuantityString() const {return quantity_string;}
     bool present;
+
+    bool operator==(const Ingredient& other) const{
+        return 
+               name == other.name
+            && quantity == other.quantity
+            && quantity_string == other.quantity_string;
+    } 
 private:
     std::string name;
     double quantity; // stored in metric units and can be converted

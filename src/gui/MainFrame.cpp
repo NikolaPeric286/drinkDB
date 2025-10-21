@@ -50,7 +50,7 @@ void MainFrame::create_menus(){
     edit_menu = new wxMenu;
     edit_menu->Append(ID_Add, "&Add Recipe");
     edit_menu->Append(wxID_ANY, "&Edit Stock");
-    edit_menu->Append(wxID_ANY, "&Delete Item");
+    edit_menu->Append(ID_Delete, "&Delete Item");
     edit_menu->Append(ID_Save, "&Save Changes");
 
     menu_bar->Append(file_menu, "&File");
@@ -63,7 +63,8 @@ void MainFrame::create_menus(){
     Bind(wxEVT_MENU, &MainFrame::OnLoadStock, this,ID_Load_Stock);
     Bind(wxEVT_MENU, &MainFrame::OnClear, this, ID_Clear);
     Bind(wxEVT_MENU, &MainFrame::OnAdd, this, ID_Add);
-    Bind(wxEVT_MENU, &MainFrame::OnSave, this, ID_Save);    
+    Bind(wxEVT_MENU, &MainFrame::OnSave, this, ID_Save);  
+    Bind(wxEVT_MENU, &MainFrame::OnDelete, this, ID_Delete);  
 }
 
 void MainFrame::create_list(){
