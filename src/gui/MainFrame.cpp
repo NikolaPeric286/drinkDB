@@ -73,7 +73,7 @@ void MainFrame::create_list(){
     recipe_list->InsertColumn(0, "Name", 0, 200);
     recipe_list->SetDoubleBuffered(true);
 
-    search = new wxTextCtrl(list_panel, wxID_ANY, wxString("search a recipe..."), wxPoint(0,0), wxSize(200,35));
+    search = new wxTextCtrl(list_panel, ID_Search, wxString("search a recipe..."), wxPoint(0,0), wxSize(200,35));
     
     fav_button = new wxButton(list_panel, wxID_ANY, "",wxPoint(202,3), wxSize(29,29) );
     available_box = new wxCheckBox(list_panel, ID_Available, "Available", wxPoint(230,4), wxSize(-1,15) ); //////
@@ -82,7 +82,7 @@ void MainFrame::create_list(){
     available_box->SetValue(true);
     not_available_box->SetValue(true);
 
-    Bind(wxEVT_TEXT, &MainFrame::OnSearch, this);
+    Bind(wxEVT_TEXT, &MainFrame::OnSearch, this, ID_Search);
     Bind(wxEVT_CHECKBOX, &MainFrame::OnCheckBox, this, ID_Available);
     Bind(wxEVT_CHECKBOX, &MainFrame::OnCheckBox, this, ID_Not_Available);
     Bind(wxEVT_LIST_ITEM_SELECTED, &MainFrame::OnSelectRecipe, this, ID_Recipe_List);
@@ -91,7 +91,8 @@ void MainFrame::create_list(){
 }
 
 void MainFrame::create_add_recipe_window(){
-    add_recipe_frame_ptr = new AddRecipeFrame(this);
+    std::function<void(const wxString&)> cb = std::bind(&MainFrame::update_list, this, std::placeholders::_1);
+    add_recipe_frame_ptr = new AddRecipeFrame(this , std::move(cb));
     add_recipe_frame_ptr->Hide();
 }
 

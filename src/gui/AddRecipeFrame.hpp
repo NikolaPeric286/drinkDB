@@ -8,12 +8,16 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <sstream>
+#include <functional>
+#include "../logic/Logic.hpp"
 
 
 class AddRecipeFrame : public wxFrame{
 
 public:
-    AddRecipeFrame(wxFrame* frame_ptr);
+    
+    AddRecipeFrame(wxFrame* frame_ptr,  std::function<void(const wxString&)> _cb);
 
     enum IDs{
         ID_recipe_name_input_box=2,
@@ -25,13 +29,27 @@ public:
 
     void OnSelectBox([[maybe_unused]] wxMouseEvent& event);
 
+    void OnSave([[maybe_unused]] wxCommandEvent& event);
+    
+
 private:
+
+    wxFrame* parent_frame;
+    
+    std::function<void(const wxString&)> cb;
+    
 
     void create_controls();
 
     wxBoxSizer* box_sizer;
+    wxBoxSizer* button_sizer;
 
     wxPanel* main_panel;
+    wxPanel* inputs_panel;
+    wxPanel* button_panel;
+
+    wxStaticText* input_box_titles;
+    
 
     wxTextCtrl* recipe_name_input_box;
     wxTextCtrl* ingredient_name_input_box;
@@ -39,7 +57,7 @@ private:
     wxTextCtrl* glass_input_box;
     wxTextCtrl* extra_notes_input_box;
 
-    wxListCtrl* ingredient_list_display;
+    
 
     wxButton* save_button;
     wxButton* cancel_button;

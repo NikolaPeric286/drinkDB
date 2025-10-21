@@ -4,36 +4,44 @@
 #include "AddRecipeFrame.hpp"
 
 
-AddRecipeFrame::AddRecipeFrame(wxFrame* frame_ptr) : wxFrame(frame_ptr, wxID_ANY, "Add a Recipe", wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE & ~wxRESIZE_BORDER & ~wxMAXIMIZE_BOX){
-    SetClientSize(500,500);
+AddRecipeFrame::AddRecipeFrame(wxFrame* frame_ptr,  std::function<void(const wxString&)> _cb) : cb(std::move(_cb)), wxFrame(frame_ptr, wxID_ANY, "Add a Recipe", wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE & ~wxRESIZE_BORDER & ~wxMAXIMIZE_BOX){
+    parent_frame = frame_ptr;
+    SetClientSize(500,250);
     Center();
     main_panel = new wxPanel(this);
+    inputs_panel = new wxPanel(main_panel, wxID_ANY, wxPoint(100,0), wxSize(400,200));;
+    button_panel = new wxPanel(main_panel, wxID_ANY, wxPoint(0,200),wxSize(500,50));
+
     box_sizer = new wxBoxSizer(wxVERTICAL);
-    
+    button_sizer = new wxBoxSizer(wxHORIZONTAL);
     
     create_controls();
-    main_panel->SetSizer(box_sizer);
     Layout();
+    inputs_panel->SetSizerAndFit(box_sizer);
+    button_panel->SetSizerAndFit(button_sizer);    
 }
 
 
 void AddRecipeFrame::create_controls(){
 
+    input_box_titles = new wxStaticText(main_panel,wxID_ANY, "Name\n\nIngredients\n\nGarnish\n\nGlass\n\nExtra", wxPoint(3,8), wxDefaultSize);
+    
+    wxFont myFont(12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+    input_box_titles->SetFont(myFont);
+    
+    recipe_name_input_box = new wxTextCtrl(inputs_panel, wxID_ANY, "Enter Recipe Name", wxDefaultPosition, wxSize(400,-1));
+    ingredient_name_input_box = new wxTextCtrl(inputs_panel, wxID_ANY, "Enter ingredient, quantity. Separate with ;", wxDefaultPosition, wxSize(400,-1));
+    garnish_input_box = new wxTextCtrl(inputs_panel, wxID_ANY, "Enter Garnish or leave empty", wxDefaultPosition, wxSize(400,-1));
+    glass_input_box = new wxTextCtrl(inputs_panel, wxID_ANY, "Enter Type of Glass", wxDefaultPosition, wxSize(400,-1));
+    extra_notes_input_box = new wxTextCtrl(inputs_panel, wxID_ANY, "Enter Extra Notes or leave empty", wxDefaultPosition, wxSize(400,-1));
+
     
 
-    recipe_name_input_box = new wxTextCtrl(main_panel, wxID_ANY, "Name");
-    ingredient_name_input_box = new wxTextCtrl(main_panel, wxID_ANY, "Ingredient");
-    garnish_input_box = new wxTextCtrl(main_panel, wxID_ANY, "Garnish");
-    glass_input_box = new wxTextCtrl(main_panel, wxID_ANY, "Glass");
-    extra_notes_input_box = new wxTextCtrl(main_panel, wxID_ANY, "Extra Notes");
-
-    ingredient_list_display;
-
-    box_sizer->Add(recipe_name_input_box, 10,  wxEXPAND | wxALL, 2);
-    box_sizer->Add(ingredient_name_input_box, 10,  wxEXPAND | wxALL, 2);
-    box_sizer->Add(garnish_input_box, 10,  wxEXPAND | wxALL, 2);
-    box_sizer->Add(glass_input_box, 10,  wxEXPAND | wxALL, 2);
-    box_sizer->Add(extra_notes_input_box, 10,  wxEXPAND | wxALL, 2);
+    box_sizer->Add(recipe_name_input_box, 0,    wxALL, 2);
+    box_sizer->Add(ingredient_name_input_box, 0,   wxALL, 2);
+    box_sizer->Add(garnish_input_box, 0,   wxALL, 2);
+    box_sizer->Add(glass_input_box, 0,   wxALL, 2);
+    box_sizer->Add(extra_notes_input_box, 0,   wxALL, 2);
 
     recipe_name_input_box->Bind(wxEVT_LEFT_DOWN, &AddRecipeFrame::OnSelectBox, this);
     ingredient_name_input_box->Bind(wxEVT_LEFT_DOWN, &AddRecipeFrame::OnSelectBox, this);
@@ -41,8 +49,15 @@ void AddRecipeFrame::create_controls(){
     glass_input_box->Bind(wxEVT_LEFT_DOWN, &AddRecipeFrame::OnSelectBox, this);
     extra_notes_input_box->Bind(wxEVT_LEFT_DOWN, &AddRecipeFrame::OnSelectBox, this);
 
-    save_button;
-    cancel_button;
+    save_button = new wxButton(button_panel, wxID_ANY, "SAVE", wxDefaultPosition, wxDefaultSize);
+    cancel_button = new wxButton(button_panel, wxID_ANY, "CANCEL", wxDefaultPosition, wxDefaultSize);
+
+    button_sizer->Add(save_button, 10, wxALIGN_CENTER_VERTICAL , 2);
+    button_sizer->Add(cancel_button, 10, wxALIGN_CENTER_VERTICAL , 2);
+
+    cancel_button->Bind(wxEVT_BUTTON, [this]([[maybe_unused]] wxCommandEvent& event) {Hide();});
+    save_button->Bind(wxEVT_BUTTON, &AddRecipeFrame::OnSave, this);
+    
 }
 
 void AddRecipeFrame::OnSelectBox([[maybe_unused]] wxMouseEvent& event){
@@ -51,4 +66,59 @@ void AddRecipeFrame::OnSelectBox([[maybe_unused]] wxMouseEvent& event){
     textCtrl->SetValue("");
     event.Skip();
     
+}
+
+void AddRecipeFrame::OnSave([[maybe_unused]] wxCommandEvent& event){
+    Recipe temp_recipe;
+
+    temp_recipe.name = recipe_name_input_box->GetValue().ToStdString();
+    temp_recipe.garnish = garnish_input_box->GetValue().ToStdString();
+    temp_recipe.glass = glass_input_box->GetValue().ToStdString();
+    temp_recipe.extra_notes = extra_notes_input_box->GetValue().ToStdString();
+    
+    std::string ingredients_string = ingredient_name_input_box->GetValue().ToStdString();
+
+    
+    std::stringstream ss(ingredients_string);
+    std::string item;
+
+   
+    while (std::getline(ss, item, ';')) {
+        // Trim leading/trailing spaces
+        auto trim = [](std::string& s) {
+            s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](unsigned char ch){ return !std::isspace(ch); }));
+            s.erase(std::find_if(s.rbegin(), s.rend(), [](unsigned char ch){ return !std::isspace(ch); }).base(), s.end());
+        };
+
+        trim(item);
+        if (item.empty()) continue;
+
+        // Split by ',' to separate name and quantity
+        std::stringstream part(item);
+        std::string name, quantity;
+        double temp_amount;
+        if (std::getline(part, name, ',') && std::getline(part, quantity)) {
+            trim(name);
+            trim(quantity);
+
+            if(quantity.find("oz") != std::string::npos){
+                temp_amount = OZ_TO_ML * std::stod(quantity.erase(quantity.length() - 2));
+            }
+            else if (quantity.find("ml") != std::string::npos){
+                temp_amount = std::stod(quantity.erase(quantity.length() - 2));
+            }
+            else{
+                temp_recipe.ingredient_vector.emplace_back(name, quantity);
+                continue;
+            }
+
+            temp_recipe.ingredient_vector.emplace_back(name,temp_amount, Ingredient::units::metric);
+        }
+    }
+
+    DataManager::getInstance().AddRecipe(temp_recipe);
+    
+    if (cb) cb("");
+    
+    Hide();
 }

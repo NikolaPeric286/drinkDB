@@ -8,6 +8,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <functional>
 #include <sstream>
 #include "../logic/Logic.hpp"
 #include "AddRecipeFrame.hpp"
@@ -34,7 +35,8 @@ enum IDS {
     ID_Not_Available,
     ID_Recipe_List,
     ID_Add,
-    ID_Save
+    ID_Save,
+    ID_Search
 };
 
 class MainFrame : public wxFrame{
@@ -42,7 +44,7 @@ class MainFrame : public wxFrame{
 public:
     MainFrame(const wxString& title);
 
-
+    friend class AddRecipeFrame;
     // MENU EVENTS ----------------------------
 
     // File| Exit event handler
