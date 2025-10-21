@@ -10,6 +10,7 @@
 #include <string>
 #include <sstream>
 #include <functional>
+#include <algorithm>
 #include "../logic/Logic.hpp"
 
 
@@ -31,6 +32,7 @@ public:
 
     void OnSave([[maybe_unused]] wxCommandEvent& event);
     
+    void OnShow([[maybe_unused]] wxShowEvent& event);
 
 private:
 
@@ -38,6 +40,13 @@ private:
     
     std::function<void(const wxString&)> cb;
     
+    std::vector<std::string> placeholder_text = {
+        "Enter Recipe Name",
+        "Enter ingredient, quantity. Separate with ;",
+        "Enter Garnish or leave empty",
+        "Enter Type of Glass",
+        "Enter Extra Notes or leave empty"
+    };
 
     void create_controls();
 
